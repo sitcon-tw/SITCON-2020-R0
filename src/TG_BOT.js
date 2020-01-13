@@ -35,6 +35,7 @@ export class TG_BOT extends Component {
             .then(res => res.json())
             .then((result) => {
                 if (result.ok && result.result) {
+                    console.log(result);
 
                     let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                     let newItems = [...storaged, ...result.result];
@@ -79,7 +80,7 @@ export class TG_BOT extends Component {
                                 {item.message.message_id}
                             </td>
                             <td style={{ padding: "0 20px" }}>
-                                {item.message.text}
+                                {item.message.text ? item.message.text : (item.message.sticker ? item.message.sticker.emoji : <strong>Non Text or sticker</strong>)}
                             </td>
                         </tr>
                     ))}

@@ -1,8 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
-import TG from './TG_BOT';
+import Test from './Test';
+import TG_BOT from './IRC'
 
 function App() {
   return (
@@ -23,8 +29,18 @@ function App() {
       </header> */}
 
       <h1>Recived Messages</h1>
-      <TG />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <TG_BOT />
+          </Route>
+          <Route path="/test">
+            <Test />
+          </Route>
+        </Switch>
+      </Router>
     </div>
+
   );
 }
 

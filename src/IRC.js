@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class TG_BOT extends Component {
+export class IRC extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -130,4 +130,4 @@ export class TG_BOT extends Component {
     }
 }
 
-export default TG_BOT
+export default IRC

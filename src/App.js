@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Test from './Test';
-import TG_BOT from './IRC'
+import IRC from './IRC'
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <TG_BOT />
+            <IRC />
           </Route>
           <Route path="/test">
             <Test />

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './main.css'
 
 export class IRC extends Component {
     constructor(props) {
@@ -11,8 +12,6 @@ export class IRC extends Component {
             inputToken: ""
         };
 
-        this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
-        this.saveToken = this.saveToken.bind(this);
         this.clearSavedMsg = this.clearSavedMsg.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
     }
@@ -20,13 +19,21 @@ export class IRC extends Component {
     componentDidMount() {
         this.setState({
             items: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : this.state.items,
-            token: sessionStorage.getItem('bot_token')
         });
+
+        this.setState({token: this.state.inputToken})
 
         this.retriveMessage();
         setInterval(() => {
             this.retriveMessage();
-        }, 5000);
+        }, 1000);
+
+        document.addEventListener('keypress', (e) => {
+            if(e.key === 'c') {
+                console.log('clear!')
+                this.clearSavedMsg()
+            }
+        })
     }
 
     retriveMessage() {
@@ -46,6 +53,7 @@ export class IRC extends Component {
                     });
 
                     this.saveMessage(newItems);
+                    window.scrollTo(0, window.scrollMaxY)
                 } else {
                     this.setState({
                         error: { message: result.error_code + ': ' + result.description }
@@ -63,45 +71,33 @@ export class IRC extends Component {
             )
     }
 
+    transferDate(date) {
+        let nowTime = new Date(date*1000)
+        let AMPM = 'AM'
+        if (nowTime.getHours() >= 12) AMPM = 'PM'
+        if (nowTime.getSeconds() < 10) return `${AMPM} ${nowTime.getHours()}:${nowTime.getMinutes()}:0${nowTime.getSeconds()}`
+        return `${AMPM} ${nowTime.getHours()}:${nowTime.getMinutes()}:${nowTime.getSeconds()}`
+    }
+
     msgTable() {
         const { items } = this.state;
         return (
-            <table style={{ margin: "0 auto" }}>
-                <thead>
-                    <tr>
-                        <td><h5>Message Id</h5></td>
-                        <td style={{ padding: "0 20px" }}><h5>Message</h5></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item, key) => (
-                        <tr key={key}>
-                            <td>
-                                {item.message.message_id}
-                            </td>
-                            <td style={{ padding: "0 20px" }}>
-                                {item.message.text ? item.message.text : (item.message.sticker ? item.message.sticker.emoji : <strong>Non Text or sticker</strong>)}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div id="messages">
+                {items.map((item, key) => (
+                    <div key={key} className="message">
+                        <div className="time">
+                            <a href='#messages'>
+                                {this.transferDate(item.message.date)}
+                            </a>
+                        </div>
+                        <div className="word">
+                            {item.message.chat.username}: {item.message.text ? item.message.text.replace(/^<(.+)>/, '$1') : (item.message.sticker ? item.message.sticker.emoji : <strong>Non Text or sticker</strong>)}
+                        </div>
+                    </div>
+                ))}
+            </div>
         );
 
-    }
-
-    tokenInputOnChange(e) {
-        this.setState({
-            inputToken: e.target.value
-        });
-    }
-
-    saveToken() {
-        sessionStorage.setItem('bot_token', this.state.inputToken);
-        console.log('new token saved');
-        this.setState({
-            token: this.state.inputToken
-        });
     }
 
     saveMessage(msgArray) {
@@ -118,12 +114,7 @@ export class IRC extends Component {
     render() {
         return (
             <div>
-                <p>IRC</p>
-                Token: <input onChange={this.tokenInputOnChange} value={this.state.inputToken} />
-                <button onClick={this.saveToken} style={{ marginLeft: "10px" }}>Save Token</button>
-                <button onClick={this.clearSavedMsg} style={{ marginLeft: "10px" }}>Clear Message</button>
-
-                {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null}
+                {/* {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null} */}
                 {this.msgTable()}
             </div>
         );

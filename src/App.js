@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
 
-import Test from './Test';
+import Test from './test';
 import IRC from './IRC'
 
 function App() {
@@ -27,11 +27,12 @@ function App() {
           Learn React
         </a>
       </header> */}
-
-      <h1>Recived Messages</h1>
       <Router>
         <Switch>
           <Route exact path="/">
+            <IRC />
+          </Route>
+          <Route exact path="/IRC">
             <IRC />
           </Route>
           <Route path="/test">

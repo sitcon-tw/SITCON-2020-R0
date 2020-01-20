@@ -9,7 +9,8 @@ export class IRC extends Component {
             items: [],
             latestUpdateId: null,
             token: process.env.TG_BOT_TOKEN ? process.env.TG_BOT_TOKEN : null,
-            inputToken: ""
+            inputToken: "",
+            stickersPath: {}
         };
 
         this.clearSavedMsg = this.clearSavedMsg.bind(this);
@@ -21,7 +22,7 @@ export class IRC extends Component {
             items: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : this.state.items,
         });
 
-        this.setState({token: this.state.inputToken})
+        this.setState({ token: this.state.inputToken })
 
         this.retriveMessage();
         setInterval(() => {
@@ -29,10 +30,25 @@ export class IRC extends Component {
         }, 1000);
 
         document.addEventListener('keypress', (e) => {
-            if(e.key === 'c') {
+            if (e.key === 'c') {
                 console.log('clear!')
                 this.clearSavedMsg()
             }
+        })
+    }
+
+    getStickerWithFileId(file_id) {
+        return new Promise((resolve, reject) => {
+            fetch('https://api.telegram.org/bot' + this.state.token + '/getFile?file_id=' + file_id)
+                .then(res => res.json())
+                .then((result) => {
+                    if (result.ok && result.result) {
+                        resolve('https://api.telegram.org/file/bot' + this.state.token + '/' + result.result.file_path);
+                    } else {
+                        reject(result);
+                    }
+                })
+                .catch((err) => reject(err));
         })
     }
 
@@ -72,7 +88,7 @@ export class IRC extends Component {
     }
 
     transferDate(date) {
-        let nowTime = new Date(date*1000)
+        let nowTime = new Date(date * 1000)
         let AMPM = 'AM'
         if (nowTime.getHours() >= 12) AMPM = 'PM'
         if (nowTime.getSeconds() < 10) return `${AMPM} ${nowTime.getHours()}:${nowTime.getMinutes()}:0${nowTime.getSeconds()}`
@@ -83,18 +99,31 @@ export class IRC extends Component {
         const { items } = this.state;
         return (
             <div id="messages">
-                {items.map((item, key) => (
-                    <div key={key} className="message">
-                        <div className="time">
-                            <a href='#messages'>
-                                {this.transferDate(item.message.date)}
-                            </a>
+                {items.map((item, key) => {
+
+                    if (item.message.sticker && item.message.sticker.file_id && !this.state.stickersPath[item.message.sticker.file_id]) {
+                        this.getStickerWithFileId(item.message.sticker.file_id).then((path) => {
+                            let newStickersPath = this.state.stickersPath;
+                            newStickersPath[item.message.sticker.file_id] = path;
+                            this.setState({
+                                stickersPath: newStickersPath
+                            })
+                        })
+                    }
+
+                    return (
+                        <div key={key} className="message">
+                            <div className="time">
+                                <a href='#messages'>
+                                    {this.transferDate(item.message.date)}
+                                </a>
+                            </div>
+                            <div className="word">
+                                {item.message.chat.username}: {item.message.text ? item.message.text.replace(/^<(.+)>/, '$1') : (item.message.sticker ? <img width="100px" height="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> : <strong>Non Text or sticker</strong>)}
+                            </div>
                         </div>
-                        <div className="word">
-                            {item.message.chat.username}: {item.message.text ? item.message.text.replace(/^<(.+)>/, '$1') : (item.message.sticker ? item.message.sticker.emoji : <strong>Non Text or sticker</strong>)}
-                        </div>
-                    </div>
-                ))}
+                    )
+                })}
             </div>
         );
 

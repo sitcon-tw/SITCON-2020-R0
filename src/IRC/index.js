@@ -25,9 +25,6 @@ export class IRC extends Component {
         this.setState({ token: this.state.inputToken })
 
         this.retriveMessage();
-        setInterval(() => {
-            this.retriveMessage();
-        }, 1000);
 
         document.addEventListener('keypress', (e) => {
             if (e.key === 'c') {
@@ -75,6 +72,7 @@ export class IRC extends Component {
                         error: { message: result.error_code + ': ' + result.description }
                     });
                 }
+                setTimeout(this.retriveMessage, 1000);
             },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -83,6 +81,8 @@ export class IRC extends Component {
                     this.setState({
                         error
                     });
+
+                    setTimeout(this.retriveMessage, 1000);
                 }
             )
     }

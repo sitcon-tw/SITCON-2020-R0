@@ -8,7 +8,8 @@ export class Test extends Component {
             items: [],
             latestUpdateId: null,
             token: process.env.TG_BOT_TOKEN ? process.env.TG_BOT_TOKEN : null,
-            inputToken: ""
+            inputToken: "",
+            stickersPath: {}
         };
 
         this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
@@ -35,8 +36,6 @@ export class Test extends Component {
             .then(res => res.json())
             .then((result) => {
                 if (result.ok && result.result) {
-                    console.log(result);
-
                     let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                     let newItems = [...storaged, ...result.result];
 
@@ -63,6 +62,21 @@ export class Test extends Component {
             )
     }
 
+    getStickerWithFileId(file_id) {
+        return new Promise((resolve, reject) => {
+            fetch('https://api.telegram.org/bot' + this.state.token + '/getFile?file_id=' + file_id)
+                .then(res => res.json())
+                .then((result) => {
+                    if (result.ok && result.result) {
+                        resolve('https://api.telegram.org/file/bot' + this.state.token + '/' + result.result.file_path);
+                    } else {
+                        reject(result);
+                    }
+                })
+                .catch((err) => reject(err));
+        })
+    }
+
     msgTable() {
         const { items } = this.state;
         return (
@@ -74,16 +88,28 @@ export class Test extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item, key) => (
-                        <tr key={key}>
-                            <td>
-                                {item.message.message_id}
-                            </td>
-                            <td style={{ padding: "0 20px" }}>
-                                {item.message.text ? item.message.text : (item.message.sticker ? item.message.sticker.emoji : <strong>Non Text or sticker</strong>)}
-                            </td>
-                        </tr>
-                    ))}
+                    {items.map((item, key) => {
+                        if (item.message.sticker && item.message.sticker.file_id && !this.state.stickersPath[item.message.sticker.file_id]) {
+                            this.getStickerWithFileId(item.message.sticker.file_id).then((path) => {
+                                let newStickersPath = this.state.stickersPath;
+                                newStickersPath[item.message.sticker.file_id] = path;
+                                this.setState({
+                                    stickersPath: newStickersPath
+                                })
+                            })
+                        }
+
+                        return (
+                            <tr key={key}>
+                                <td>
+                                    {item.message.message_id}
+                                </td>
+                                <td style={{ padding: "0 20px" }}>
+                                    {item.message.text ? item.message.text : (item.message.sticker ? <img width="100px" height="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> : <strong>Non Text or sticker</strong>)}
+                                </td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
         );

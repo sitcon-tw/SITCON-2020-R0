@@ -8,8 +8,7 @@ export class IRC extends Component {
             error: null,
             items: [],
             latestUpdateId: null,
-            token: process.env.TG_BOT_TOKEN ? process.env.TG_BOT_TOKEN : null,
-            inputToken: "",
+            token: process.env.REACT_APP_TG_BOT_TOKEN ? process.env.REACT_APP_TG_BOT_TOKEN : null,
             stickersPath: {}
         };
 
@@ -21,8 +20,6 @@ export class IRC extends Component {
         this.setState({
             items: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : this.state.items,
         });
-
-        this.setState({ token: this.state.inputToken })
 
         this.retriveMessage();
 
@@ -49,7 +46,7 @@ export class IRC extends Component {
         })
     }
 
-    retriveMessage() {
+    retriveMessage = () => {
         if (this.state.token === null) return;
         fetch('https://api.telegram.org/bot' + this.state.token + '/getUpdates?offset=' + (this.state.latestUpdateId + 1))
             .then(res => res.json())
@@ -102,7 +99,7 @@ export class IRC extends Component {
                 {items.map((item, key) => {
 
                     if (item.message.sticker && item.message.sticker.file_id && !this.state.stickersPath[item.message.sticker.file_id]) {
-                        this.getStickerWithFileId(item.message.sticker.file_id).then((path) => {
+                        this.getStickerWithFileId(item.message.sticker.is_animated ? item.message.sticker.thumb.file_id : item.message.sticker.file_id).then((path) => {
                             let newStickersPath = this.state.stickersPath;
                             newStickersPath[item.message.sticker.file_id] = path;
                             this.setState({

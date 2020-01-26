@@ -1,5 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setting TG_BOT Token
+
+1. Create a file called `.env.local`
+
+2. Add line to the file
+`REACT_APP_TG_BOT_TOKEN=<your_bot_token>`
+
 ## Available Scripts
 
 In the project directory, you can run:

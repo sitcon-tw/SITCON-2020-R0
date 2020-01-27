@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500,700.900');
+/*
+    body: 1920 * 1080
+    main: 1600 * 900
+    messages: 320 * 730
+*/
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-family: Noto Sans TC;
+    vertical-align: baseline;
+    line-height: 1.4;
+    font-weight: 400;
+    letter-spacing: 1px;
+}

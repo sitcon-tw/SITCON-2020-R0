@@ -95,7 +95,7 @@ export class IRC extends Component {
     msgTable() {
         const { items } = this.state;
         return (
-            <div id="messages">
+            <div className="messages">
                 {items.map((item, key) => {
 
                     if (item.message.sticker && item.message.sticker.file_id && !this.state.stickersPath[item.message.sticker.file_id]) {

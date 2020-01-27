@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import './test.css'
 export class Test extends Component {
     constructor(props) {
         super(props);
@@ -143,7 +143,7 @@ export class Test extends Component {
 
     render() {
         return (
-            <div>
+            <div className="test">
                 Token: <input onChange={this.tokenInputOnChange} value={this.state.inputToken} />
                 <button onClick={this.saveToken} style={{ marginLeft: "10px" }}>Save Token</button>
                 <button onClick={this.clearSavedMsg} style={{ marginLeft: "10px" }}>Clear Message</button>

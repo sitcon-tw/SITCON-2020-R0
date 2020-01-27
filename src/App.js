@@ -1,6 +1,6 @@
 import React from 'react';
 // import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +8,8 @@ import {
 } from 'react-router-dom';
 
 import Test from './test';
-import IRC from './IRC'
+import IRC from './IRC';
+import IntegratedIRC from './Intergrated-IRC';
 
 function App() {
   return (
@@ -30,9 +31,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <IRC />
+            <IntegratedIRC />
           </Route>
-          <Route exact path="/IRC">
+          <Route path="/IRC">
             <IRC />
           </Route>
           <Route path="/test">

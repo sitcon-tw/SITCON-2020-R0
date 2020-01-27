@@ -1,4 +1,4 @@
-const Agenda = [
+const Agendas = [
   {
     title: '入場時間',
     name: '',
@@ -24,11 +24,23 @@ const Agenda = [
     }
   },
   {
-    title: '人工智慧的過去現在與未來',
-    name: '林守德',
+    title: 'Keynote',
+    name: '',
     startTime: {
       hours: 9,
       minutes: 10
+    },
+    endTime: {
+      hours: 10,
+      minutes: 0
+    }
+  },
+  {
+    title: '休息時間',
+    name: '',
+    startTime: {
+      hours: 10,
+      minutes: 0
     },
     endTime: {
       hours: 10,
@@ -36,11 +48,23 @@ const Agenda = [
     }
   },
   {
-    title: '商管、演算法、商管',
-    name: '孔令傑',
+    title: 'Keynote',
+    name: '',
     startTime: {
       hours: 10,
       minutes: 10
+    },
+    endTime: {
+      hours: 11,
+      minutes: 0
+    }
+  },
+  {
+    title: '休息時間',
+    name: '',
+    startTime: {
+      hours: 11,
+      minutes: 0
     },
     endTime: {
       hours: 11,
@@ -48,8 +72,8 @@ const Agenda = [
     }
   },
   {
-    title: '欸，那個 QuerySelector 實際上在幹嘛啊',
-    name: '黃志仁 / Splitline',
+    title: '第一次做密室逃脫就上手',
+    name: '捲毛',
     startTime: {
       hours: 11,
       minutes: 10
@@ -72,7 +96,7 @@ const Agenda = [
     }
   },
   {
-    title: '論壇 - 你決定的演算法與決定你的演算法',
+    title: '論壇',
     name: '',
     startTime: {
       hours: 12,
@@ -96,24 +120,47 @@ const Agenda = [
     }
   },
   {
-    title: '零基礎打造 P 站搜尋引擎',
-    name: '松鼠',
+    title: '我也能讓Python幫忙操控電腦嗎？',
+    name: '陳怡升',
     startTime: {
       hours: 14,
       minutes: 20
     },
     endTime: {
       hours: 14,
-      minutes: 35
+      minutes: 30
     }
-
   },
   {
-    title: '你所不知道的維基 - Wikidata',
-    name: '涂家銘',
+    title: '換場',
+    name: '',
+    startTime: {
+      hours: 14,
+      minutes: 30
+    },
+    endTime: {
+      hours: 14,
+      minutes: 35
+    }
+  },
+  {
+    title: '臉書資料探勘－鯉魚教の教主崇拜分析',
+    name: 'isekai',
     startTime: {
       hours: 14,
       minutes: 35
+    },
+    endTime: {
+      hours: 14,
+      minutes: 45
+    }
+  },
+  {
+    title: '換場',
+    name: '',
+    startTime: {
+      hours: 14,
+      minutes: 45
     },
     endTime: {
       hours: 14,
@@ -121,8 +168,8 @@ const Agenda = [
     }
   },
   {
-    title: 'AI for the Art in a Box',
-    name: '張嘉哲',
+    title: '求職助手的開發起源和他的困難點',
+    name: '白天當Student',
     startTime: {
       hours: 14,
       minutes: 50
@@ -145,8 +192,8 @@ const Agenda = [
     }
   },
   {
-    title: 'TMML 真相靠自己─You are Fake News！',
-    name: '陳廷易 / Leo',
+    title: '就算是新手，有愛就沒把專案做出來，對吧',
+    name: '宏宏',
     startTime: {
       hours: 15,
       minutes: 40
@@ -157,11 +204,23 @@ const Agenda = [
     }
   },
   {
-    title: '從學校到業界，工程師作為職業的現實',
-    name: '蒼時弦也',
+    title: '休息時間',
+    name: '',
     startTime: {
       hours: 16,
       minutes: 20
+    },
+    endTime: {
+      hours: 16,
+      minutes: 30
+    }
+  },
+  {
+    title: 'CDN網站攻擊-這次換駭客當鬼來抓你了',
+    name: 'Mico',
+    startTime: {
+      hours: 16,
+      minutes: 30
     },
     endTime: {
       hours: 17,
@@ -169,7 +228,7 @@ const Agenda = [
     }
   },
   {
-    title: '休息',
+    title: '休息時間',
     name: '',
     startTime: {
       hours: 17,
@@ -177,7 +236,7 @@ const Agenda = [
     },
     endTime: {
       hours: 17,
-      minutes: 20
+      minutes: 15
     }
   },
   {
@@ -185,11 +244,11 @@ const Agenda = [
     name: '',
     startTime: {
       hours: 17,
-      minutes: 20
+      minutes: 15
     },
     endTime: {
       hours: 17,
-      minutes: 45
+      minutes: 40
     }
   },
   {
@@ -197,13 +256,13 @@ const Agenda = [
     name: '',
     startTime: {
       hours: 17,
-      minutes: 45
+      minutes: 40
     },
     endTime: {
-      hours: 23,
-      minutes: 59
+      hours: 18,
+      minutes: 0
     }
   }
 ]
 
-export default Agenda
+export default Agendas

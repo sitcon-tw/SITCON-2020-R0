@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './main.scss'
-import Agenda from './agenda'
+import Agendas from './agendas'
 
 import IRC from '../IRC'
 
@@ -22,7 +22,7 @@ class NowAgenda extends Component {
   nowPlaying() {
       let nowTime = new Date()
       let agenda = 'SITCON 學生計算機年會'
-      for (let e of Agenda) {
+      for (let e of Agendas) {
         if (e.endTime.hours > nowTime.getHours() || ((e.endTime.hours === nowTime.getHours()) && (e.endTime
               .minutes > nowTime.getMinutes()))) {
           agenda = `${e.startTime.hours.toString().padStart(2, '0')}:${e.startTime.minutes.toString().padStart(2, '0')}` 

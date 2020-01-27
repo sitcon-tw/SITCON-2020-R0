@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './test.css'
+import './test.scss'
 export class Test extends Component {
     constructor(props) {
         super(props);

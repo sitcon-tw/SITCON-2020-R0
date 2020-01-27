@@ -1,0 +1,57 @@
+.messages {
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    display: block;
+    /* flex-direction: column; */
+    box-shadow: 0 0 10px rgba(40, 40, 40, .5);
+    color: #FFF;
+    background-color: #000;
+    word-wrap: break-word;
+
+    .time {
+        height: 24px;
+        background-color: gray;
+        color: #000;
+        display: flex;
+        justify-content: flex-start;
+
+        &::after {
+            border-top: solid 22px black;
+            border-left: solid 24px gray;
+            border-bottom: solid 2px gray;
+            content: '';
+            flex-grow: 1;
+        }
+
+        a {
+            text-decoration: none;
+            text-transform: uppercase;
+            color: inherit;
+            font-size: 16px;
+            padding: 2px 8px 2px;
+            vertical-align: baseline;
+        }
+    }
+
+    .word {
+        background-color: #000;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 10px;
+
+        a {
+            &:link {
+                color: #604726;
+                font-size: 16px;    
+            }
+
+            &:visited {
+                color: #604726;
+            }
+        }
+        
+        
+    }
+}

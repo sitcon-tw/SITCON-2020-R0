@@ -4,23 +4,24 @@
     left: 0px;
     top: 0px;
     display: block;
-    /* flex-direction: column; */
-    box-shadow: 0 0 10px rgba(40, 40, 40, .5);
     color: #FFF;
     background-color: #000;
+    border-top: white solid 8px;
+    border-bottom: white solid 8px;
     word-wrap: break-word;
+    overflow: hidden;
 
     .time {
         height: 24px;
-        background-color: gray;
+        background-color: #FFF;
         color: #000;
         display: flex;
         justify-content: flex-start;
 
         &::after {
             border-top: solid 22px black;
-            border-left: solid 24px gray;
-            border-bottom: solid 2px gray;
+            border-left: solid 24px #FFF;
+            border-bottom: solid 2px #FFF;
             content: '';
             flex-grow: 1;
         }

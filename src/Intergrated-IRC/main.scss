@@ -2,11 +2,54 @@
     display: flex;
     width: 100vw;
     height: 100vh;
+
     .main-content {
-        width: 80%;
+        width: 83%;
+
+        .now-agenda {
+            height: 8%;
+            background-color: black;
+            border-bottom: white solid 1px;
+
+            .agenda {
+                width: 30%;
+                height: 70%;
+                background-color: white;
+            }
+        }
+
+        .content {
+            height: 83%;
+            background-color: #322;
+        }
+
+        .news {
+            height: 9%;
+            background-color: black;
+            border-top: white solid 1px;
+        }
     }
 
     .IRC-bar {
-        width: 20%;
+        width: 18%;
+        
+        border-bottom: white solid 1px;
+
+        .live {
+            height: 8%;
+            background-color: black;
+            border-bottom: white solid 1px;
+        }
+
+        .IRC {
+            height: 74%;
+            border-left: white solid 1px;
+        }
+
+        .bar-content {
+            height: 18%;
+            background-color: black;
+            border-left: white solid 1px;
+        }
     }
 }

@@ -63,7 +63,8 @@ export class IRC extends Component {
                     });
 
                     this.saveMessage(newItems);
-                    window.scrollTo(0, window.scrollMaxY)
+                    let m = document.querySelector('.messages')
+                    m.scrollTop = m.scrollHeight
                 } else {
                     this.setState({
                         error: { message: result.error_code + ': ' + result.description }
@@ -139,7 +140,7 @@ export class IRC extends Component {
 
     render() {
         return (
-            <div>
+            <div className='IRC'>
                 {/* {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null} */}
                 {this.msgTable()}
             </div>

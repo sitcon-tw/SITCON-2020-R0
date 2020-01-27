@@ -39,7 +39,9 @@ class NowAgenda extends Component {
 
   render() {
     return (
-      <div className="now-agenda">{ this.state.agenda }</div>
+      <div className="now-agenda">
+        <div className="agenda">{ this.state.agenda }</div>
+      </div>
     )
   }
 }
@@ -56,7 +58,7 @@ class IntegratedIRC extends Component {
         <div className="IRC-bar">
           <div className="live"></div>
           <IRC />
-          <div className="news"></div>
+          <div className="bar-content"></div>
         </div>
       </div>
     )

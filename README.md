@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Setting TG_BOT Token
 
-1. Find a file called `.env.local`
+1. Create a file called `.env.local`
 
 2. Add line to the file
 `REACT_APP_TG_BOT_TOKEN=<your_bot_token>`

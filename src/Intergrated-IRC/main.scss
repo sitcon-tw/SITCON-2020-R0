@@ -1,6 +1,7 @@
 .integrated {
     display: flex;
-
+    width: 100vw;
+    height: 100vh;
     .main-content {
         width: 80%;
     }
@@ -9,6 +10,3 @@
         width: 20%;
     }
 }
-
-
-

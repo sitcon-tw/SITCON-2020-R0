@@ -51,7 +51,9 @@ class Content extends Component {
     } else {
       return (
         <div className="content-agenda">
-          <div className="title">{ e }</div>
+          <div className="title">
+            <p>{ e }</p>
+          </div>
           <div className="name"></div>
         </div>
       )

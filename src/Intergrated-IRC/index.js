@@ -101,6 +101,7 @@ class IntegratedIRC extends Component {
   componentDidMount() {
     setInterval(this.nowPlaying, 1000)
     this.controlBotUpdate()
+    console.log(this.state.currentLayout)
   }
 
 
@@ -112,11 +113,7 @@ class IntegratedIRC extends Component {
       // set layout
       if (data.message.text.search("/layout") === 0) {
         let keyboard = [];
-        Object.keys(layoutTypes).map((k) => {
-          keyboard.push({
-            text: k
-          })
-        })
+        Object.keys(layoutTypes).map(k => keyboard.push({ text: k }))
 
         this.controlBotSend(data.message.chat.id, "點選下方layout",
           {
@@ -144,6 +141,8 @@ class IntegratedIRC extends Component {
             counter = 0;
             index++;
           }
+
+          return a
         })
 
         this.controlBotSend(data.message.chat.id, "請在下方選擇議程",
@@ -238,6 +237,7 @@ class IntegratedIRC extends Component {
           result.result.map((r) => {
             localStorage.control_offset = r.update_id
             this.controlBotReceived(r)
+            return console.log(r)
           })
         }
 
@@ -261,21 +261,32 @@ class IntegratedIRC extends Component {
     }
   }
 
+
+
   render() {
-    return (
-      <div className="integrated">
-        <div className="main-content">
-          <NowAgenda agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
-          <Content agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
-          <div className="news"></div>
+    if(this.state.currentLayout === 'LayoutA') {
+      return (
+        <div className="integrated">
+          <div className="main-content">
+            <NowAgenda agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
+            <Content agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
+            <div className="news"></div>
+          </div>
+          <div className="IRC-bar">
+            <div className="live"></div>
+            <IRC />
+            <div className="bar-content"></div>
+          </div>
         </div>
-        <div className="IRC-bar">
-          <div className="live"></div>
-          <IRC />
-          <div className="bar-content"></div>
+      )
+    } 
+    else if(this.state.currentLayout === 'LayoutB') {
+      return (
+        <div className="integrated">
+            <IRC />
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 

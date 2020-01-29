@@ -5,7 +5,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1. Create a file called `.env.local`
 
 2. Add line to the file
-`REACT_APP_TG_BOT_TOKEN=<your_bot_token>`
+```
+REACT_APP_TG_BOT_TOKEN=<your_bot_token>
+REACT_APP_CONTROL_BOT_TOKEN=<your_control_bot_token>
+```
 
 ## Available Scripts
 

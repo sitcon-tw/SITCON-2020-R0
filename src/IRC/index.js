@@ -52,7 +52,6 @@ export class IRC extends Component {
             .then(res => res.json())
             .then((result) => {
                 if (result.ok && result.result) {
-                    console.log(result);
 
                     let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                     let newItems = [...storaged, ...result.result];

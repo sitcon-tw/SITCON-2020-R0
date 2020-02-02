@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap');
-/*
-    body: 1920 * 1080
-    main: 1600 * 900
-    messages: 320 * 730
-*/
+@import 'font';
+
+@import 'test';
+@import 'Integrated-IRC';
+
+@import 'IRC';
+@import 'NowAgendaBar';
 
 * {
     border: 0;

@@ -1,73 +1,7 @@
 import React, { Component } from 'react'
-import './main.scss'
 import Agendas from './agendas'
 
-import IRC from '../IRC'
-
-class NowAgenda extends Component {
-
-  componentDidMount() {
-    setInterval(this.nowPlaying, 2000)
-  }
-
-  agendaLoader(e) {
-    let agenda = e
-    if (typeof e === 'object') {
-      agenda = `${e.startTime.hours.toString().padStart(2, '0')}:${e.startTime.minutes.toString().padStart(2, '0')}`
-        + '~'
-        + `${e.endTime.hours.toString().padStart(2, '0')}:${e.endTime.minutes.toString().padStart(2, '0')}`
-        + ' '
-        + `${e.title}`
-        + ((e.name === '' || e.name === null) ? '' : ` by ${e.name}`)
-    }
-    return agenda
-  }
-
-  render() {
-    return (
-      <div className="now-agenda">
-        <div className="agenda">
-          <p>{this.agendaLoader(this.props.agenda)}</p>
-        </div>
-      </div>
-    )
-  }
-}
-
-class Content extends Component {
-
-  contentLoader(e) {
-    if (typeof e === 'object') {
-      return (
-        <div className="content-agenda">
-          <div className="title">
-            <p>{e.title}</p>
-          </div>
-          <div className="name">
-            <p>{e.name}</p>
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="content-agenda">
-          <div className="title">
-            <p>{e}</p>
-          </div>
-          <div className="name"></div>
-        </div>
-      )
-    }
-  }
-
-  render() {
-    return (
-      <div className="content">
-        {this.contentLoader(this.props.agenda)}
-      </div>
-    )
-  }
-}
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar } from '../components'
 
 const layoutTypes = {
   LayoutA: 0,
@@ -261,26 +195,24 @@ class IntegratedIRC extends Component {
     }
   }
 
-
-
   render() {
-    if(this.state.currentLayout === 'LayoutA') {
+    if(this.state.currentLayout === 'LayoutB') {
       return (
         <div className="integrated">
           <div className="main-content">
-            <NowAgenda agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
-            <Content agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
+            <NowAgendaBar agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
+            <MainDisplay agenda={this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT} />
             <div className="news"></div>
           </div>
           <div className="IRC-bar">
             <div className="live"></div>
             <IRC />
-            <div className="bar-content"></div>
+            <ButtomBar />
           </div>
         </div>
       )
     } 
-    else if(this.state.currentLayout === 'LayoutB') {
+    else if(this.state.currentLayout === 'LayoutA') {
       return (
         <div className="integrated">
             <IRC />

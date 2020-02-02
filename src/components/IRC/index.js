@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './main.scss'
 
 export class IRC extends Component {
     constructor(props) {

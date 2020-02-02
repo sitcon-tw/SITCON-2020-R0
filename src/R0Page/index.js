@@ -16,7 +16,7 @@ const controlBotStateTypes = {
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 
-class IntegratedIRC extends Component {
+class R0Page extends Component {
 
   constructor(props) {
     super(props)
@@ -222,4 +222,4 @@ class IntegratedIRC extends Component {
   }
 }
 
-export default IntegratedIRC
+export default R0Page

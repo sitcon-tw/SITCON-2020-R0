@@ -8,8 +8,7 @@ import {
 } from 'react-router-dom';
 
 import Test from './test';
-// import IRC from './IRC';
-import IntegratedIRC from './Intergrated-IRC';
+import R0Page from './R0_Page';
 
 function App() {
   return (
@@ -31,7 +30,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <IntegratedIRC />
+            <R0Page />
           </Route>
           <Route path="/test">
             <Test />

@@ -1,3 +1,10 @@
+export const agendaTypes = {
+  CommonMode: 0, // 一般模式
+  ForumMode: 1, // 論壇模式
+  LTMode: 2, // LT
+  RestingMode: 3
+}
+
 const Agendas = [
   {
     title: '入場時間',
@@ -10,7 +17,7 @@ const Agendas = [
       hours: 9,
       minutes: 0
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '開幕',
@@ -23,7 +30,7 @@ const Agendas = [
       hours: 9,
       minutes: 10
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: 'Keynote',
@@ -36,7 +43,7 @@ const Agendas = [
       hours: 10,
       minutes: 0
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '休息時間',
@@ -49,7 +56,7 @@ const Agendas = [
       hours: 10,
       minutes: 10
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: 'Keynote',
@@ -62,7 +69,7 @@ const Agendas = [
       hours: 11,
       minutes: 0
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '休息時間',
@@ -75,7 +82,7 @@ const Agendas = [
       hours: 11,
       minutes: 10
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '第一次做密室逃脫就上手',
@@ -88,7 +95,7 @@ const Agendas = [
       hours: 11,
       minutes: 50
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '午餐',
@@ -101,7 +108,7 @@ const Agendas = [
       hours: 12,
       minutes: 40
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '論壇',
@@ -114,7 +121,7 @@ const Agendas = [
       hours: 14,
       minutes: 10
     },
-    isRestAgenda: false,
+    type: agendaTypes.ForumMode,
   },
   {
     title: '休息時間',
@@ -127,7 +134,7 @@ const Agendas = [
       hours: 14,
       minutes: 20
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '我也能讓Python幫忙操控電腦嗎？',
@@ -140,7 +147,7 @@ const Agendas = [
       hours: 14,
       minutes: 30
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '換場',
@@ -153,7 +160,7 @@ const Agendas = [
       hours: 14,
       minutes: 35
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '臉書資料探勘－鯉魚教の教主崇拜分析',
@@ -166,7 +173,7 @@ const Agendas = [
       hours: 14,
       minutes: 45
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '換場',
@@ -179,7 +186,7 @@ const Agendas = [
       hours: 14,
       minutes: 50
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '求職助手的開發起源和他的困難點',
@@ -192,7 +199,7 @@ const Agendas = [
       hours: 15,
       minutes: 0
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '點心',
@@ -205,7 +212,7 @@ const Agendas = [
       hours: 15,
       minutes: 40
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '就算是新手，有愛就沒把專案做出來，對吧',
@@ -218,7 +225,7 @@ const Agendas = [
       hours: 16,
       minutes: 20
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '休息時間',
@@ -231,7 +238,7 @@ const Agendas = [
       hours: 16,
       minutes: 30
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: 'CDN網站攻擊-這次換駭客當鬼來抓你了',
@@ -244,7 +251,7 @@ const Agendas = [
       hours: 17,
       minutes: 10
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   },
   {
     title: '休息時間',
@@ -257,7 +264,7 @@ const Agendas = [
       hours: 17,
       minutes: 15
     },
-    isRestAgenda: true,
+    type: agendaTypes.RestingMode,
   },
   {
     title: 'Lightning Talk',
@@ -270,7 +277,7 @@ const Agendas = [
       hours: 17,
       minutes: 40
     },
-    isRestAgenda: false,
+    type: agendaTypes.LTMode,
   },
   {
     title: '閉幕',
@@ -283,7 +290,7 @@ const Agendas = [
       hours: 18,
       minutes: 0
     },
-    isRestAgenda: false,
+    type: agendaTypes.CommonMode,
   }
 ]
 

@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 
+let getUpdateTimeout = null;
+
+function getUpdate(token, latestUpdateId) {
+    return fetch('https://api.telegram.org/bot' + token + '/getUpdates?offset=' + (latestUpdateId + 1))
+        .then(res => res.json());
+}
+
 export class IRC extends Component {
     constructor(props) {
         super(props);
@@ -8,7 +15,7 @@ export class IRC extends Component {
             items: [],
             latestUpdateId: null,
             token: process.env.REACT_APP_TG_BOT_TOKEN ? process.env.REACT_APP_TG_BOT_TOKEN : null,
-            stickersPath: {}
+            stickersPath: {},
         };
 
         this.clearSavedMsg = this.clearSavedMsg.bind(this);
@@ -16,6 +23,7 @@ export class IRC extends Component {
     }
 
     componentDidMount() {
+        this._ismounted = true;
         this.setState({
             items: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : this.state.items,
         });
@@ -28,6 +36,14 @@ export class IRC extends Component {
                 this.clearSavedMsg()
             }
         })
+    }
+
+    componentWillUnmount() {
+        this._ismounted = false;
+        if (getUpdateTimeout) {
+            clearTimeout(getUpdateTimeout);
+            getUpdateTimeout = null;
+        }
     }
 
     getStickerWithFileId(file_id) {
@@ -47,40 +63,38 @@ export class IRC extends Component {
 
     retriveMessage = () => {
         if (this.state.token === null) return;
-        fetch('https://api.telegram.org/bot' + this.state.token + '/getUpdates?offset=' + (this.state.latestUpdateId + 1))
-            .then(res => res.json())
-            .then((result) => {
-                if (result.ok && result.result) {
 
-                    let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
-                    let newItems = [...storaged, ...result.result];
+        getUpdate(this.state.token, this.state.latestUpdateId).then((result) => {
+            if (!this._ismounted) return;
 
-                    this.setState({
-                        latestUpdateId: result.result.length > 0 ? [...result.result].pop().update_id : null,
-                        error: null
-                    });
+            if (result.ok && result.result) {
+                let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
+                let newItems = [...storaged, ...result.result];
 
-                    this.saveMessage(newItems);
-                    let m = document.querySelector('.messages')
-                    m.scrollTop = m.scrollHeight
-                } else {
-                    this.setState({
-                        error: { message: result.error_code + ': ' + result.description }
-                    });
-                }
-                setTimeout(this.retriveMessage, 1000);
-            },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        error
-                    });
+                this.setState({
+                    latestUpdateId: result.result.length > 0 ? [...result.result].pop().update_id : null,
+                    error: null
+                });
 
-                    setTimeout(this.retriveMessage, 1000);
-                }
-            )
+                this.saveMessage(newItems);
+                let m = document.querySelector('.messages');
+                m.scrollTop = m.scrollHeight;
+            } else {
+                this.setState({
+                    error: { message: result.error_code + ': ' + result.description }
+                });
+            }
+
+            getUpdateTimeout = setTimeout(this.retriveMessage, 1000);
+        },
+            (error) => {
+                this.setState({
+                    error
+                });
+
+                getUpdateTimeout = setTimeout(this.retriveMessage, 1000);
+            }
+        )
     }
 
     transferDate(date) {

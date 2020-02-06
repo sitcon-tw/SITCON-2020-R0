@@ -9,7 +9,8 @@ const Agendas = [
     endTime: {
       hours: 9,
       minutes: 0
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '開幕',
@@ -21,7 +22,8 @@ const Agendas = [
     endTime: {
       hours: 9,
       minutes: 10
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: 'Keynote',
@@ -33,7 +35,8 @@ const Agendas = [
     endTime: {
       hours: 10,
       minutes: 0
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '休息時間',
@@ -45,7 +48,8 @@ const Agendas = [
     endTime: {
       hours: 10,
       minutes: 10
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: 'Keynote',
@@ -57,7 +61,8 @@ const Agendas = [
     endTime: {
       hours: 11,
       minutes: 0
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '休息時間',
@@ -69,7 +74,8 @@ const Agendas = [
     endTime: {
       hours: 11,
       minutes: 10
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: '第一次做密室逃脫就上手',
@@ -81,7 +87,8 @@ const Agendas = [
     endTime: {
       hours: 11,
       minutes: 50
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '午餐',
@@ -93,7 +100,8 @@ const Agendas = [
     endTime: {
       hours: 12,
       minutes: 40
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: '論壇',
@@ -105,7 +113,8 @@ const Agendas = [
     endTime: {
       hours: 14,
       minutes: 10
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '休息時間',
@@ -117,7 +126,8 @@ const Agendas = [
     endTime: {
       hours: 14,
       minutes: 20
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: '我也能讓Python幫忙操控電腦嗎？',
@@ -129,7 +139,8 @@ const Agendas = [
     endTime: {
       hours: 14,
       minutes: 30
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '換場',
@@ -141,7 +152,8 @@ const Agendas = [
     endTime: {
       hours: 14,
       minutes: 35
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: '臉書資料探勘－鯉魚教の教主崇拜分析',
@@ -153,7 +165,8 @@ const Agendas = [
     endTime: {
       hours: 14,
       minutes: 45
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '換場',
@@ -165,7 +178,8 @@ const Agendas = [
     endTime: {
       hours: 14,
       minutes: 50
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: '求職助手的開發起源和他的困難點',
@@ -177,7 +191,8 @@ const Agendas = [
     endTime: {
       hours: 15,
       minutes: 0
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '點心',
@@ -189,7 +204,8 @@ const Agendas = [
     endTime: {
       hours: 15,
       minutes: 40
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: '就算是新手，有愛就沒把專案做出來，對吧',
@@ -201,7 +217,8 @@ const Agendas = [
     endTime: {
       hours: 16,
       minutes: 20
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '休息時間',
@@ -213,7 +230,8 @@ const Agendas = [
     endTime: {
       hours: 16,
       minutes: 30
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: 'CDN網站攻擊-這次換駭客當鬼來抓你了',
@@ -225,7 +243,8 @@ const Agendas = [
     endTime: {
       hours: 17,
       minutes: 10
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '休息時間',
@@ -237,7 +256,8 @@ const Agendas = [
     endTime: {
       hours: 17,
       minutes: 15
-    }
+    },
+    isRestAgenda: true,
   },
   {
     title: 'Lightning Talk',
@@ -249,7 +269,8 @@ const Agendas = [
     endTime: {
       hours: 17,
       minutes: 40
-    }
+    },
+    isRestAgenda: false,
   },
   {
     title: '閉幕',
@@ -261,7 +282,8 @@ const Agendas = [
     endTime: {
       hours: 18,
       minutes: 0
-    }
+    },
+    isRestAgenda: false,
   }
 ]
 

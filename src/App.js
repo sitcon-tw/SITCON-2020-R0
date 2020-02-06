@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Test from './test';
-import R0Page from './R0Page';
+import R0Controller from './R0Page/controller';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <R0Page />
+            <R0Controller />
           </Route>
           <Route path="/test">
             <Test />

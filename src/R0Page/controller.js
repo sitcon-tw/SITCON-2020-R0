@@ -19,7 +19,7 @@ export class R0Controller extends Component {
             autoAgenda: true,
             controlBotState: controlBotStateTypes.ModeSelect,
             currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : {
-                type: layoutTypes.LayoutC,
+                type: layoutTypes.LayoutA,
                 name: "EMPTY",
                 prop: {}
             }

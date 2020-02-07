@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Agendas, { agendaTypes } from './agendas'
+import { Agendas, agendaTypes } from './agendas'
 import R0Page from './index'
 import { layoutTypes, layoutControlModes } from '../constant'
 
@@ -88,7 +88,7 @@ export class R0Controller extends Component {
                 let counter = 0;
                 let index = 0;
                 Agendas.forEach((a) => {
-                    if (a.type != agendaTypes.RestingMode) {
+                    if (a.type !== agendaTypes.RestingMode) {
                         if (!keyboard[index]) {
                             keyboard[index] = [];
                         }

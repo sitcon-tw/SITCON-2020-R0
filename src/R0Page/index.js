@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Agendas from './agendas'
 import { layoutTypes } from '../constant'
 import { IRC, NowAgendaBar, MainDisplay, ButtomBar } from '../components'
 

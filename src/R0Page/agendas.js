@@ -1,11 +1,11 @@
 export const agendaTypes = {
   CommonMode: 0, // 一般模式
   ForumMode: 1, // 論壇模式
-  LTMode: 2, // LT
+  LTMode: 2, // Lighting Talk
   RestingMode: 3
 }
 
-const Agendas = [
+export const Agendas = [
   {
     title: '入場時間',
     name: '',
@@ -294,4 +294,27 @@ const Agendas = [
   }
 ]
 
-export default Agendas
+export const getAgendas = async () => {
+  const url = "https://sitcon.org/2020/json/session.json"
+  let res = await fetch(url)
+  let result = await res.json()
+
+  let data = result.sessions.filter(x => x.room === "R0").map(x => {
+    return {
+      title: x.zh.title,
+      name: x.speakers.map(y => {
+        return result.speakers.filter(z => z.id === y)[0].zh.name
+      }).join('、'),
+      startTime: {
+        hours: new Date(x.start).getHours(),
+        minutes: new Date(x.start).getMinutes()
+      },
+      endTime: {
+        hours: new Date(x.end).getHours(),
+        minutes: new Date(x.end).getMinutes()
+      }
+    }
+  })
+  console.log(data)
+  return data
+}

@@ -17,7 +17,7 @@ export const Agendas = [
       hours: 9,
       minutes: 0
     },
-    type: agendaTypes.CommonMode,
+    type: agendaTypes.RestingMode,
   },
   {
     title: '開幕',

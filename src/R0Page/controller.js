@@ -4,8 +4,7 @@ import R0Page from './index'
 import { layoutTypes, layoutControlModes } from '../constant'
 
 const controlBotStateTypes = {
-    ModeSelect: 1,
-    SetAgenda: 2
+    ModeSelect: 1
 }
 
 const token = process.env.REACT_APP_CONTROL_BOT_TOKEN;
@@ -67,6 +66,19 @@ export class R0Controller extends Component {
         })
     }
 
+
+
+    controlBotAnswerCallbackQuery(callback_query_id, text) {
+        fetch("https://api.telegram.org/bot" + token + "/answerCallbackQuery", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                callback_query_id: callback_query_id,
+                text: text
+            })
+        })
+    }
+
     controlBotReceived(data) {
         if (data.message) {
             // Agenda
@@ -87,31 +99,24 @@ export class R0Controller extends Component {
                 let keyboard = [];
                 let counter = 0;
                 let index = 0;
-                Agendas.forEach((a) => {
+                Agendas.forEach((a, i) => {
                     if (a.type !== agendaTypes.RestingMode) {
                         if (!keyboard[index]) {
                             keyboard[index] = [];
                         }
                         keyboard[index].push({
-                            text: a.title
+                            text: a.title,
+                            callback_data: i
                         })
                         counter++;
-                        if (counter > 5) {
+                        if (counter >= 2) {
                             counter = 0;
                             index++;
                         }
                     }
                 })
 
-                this.controlBotSend(data.message.chat.id, "請在下方選擇議程",
-                    {
-                        keyboard
-                    }
-                )
-
-                this.setState({
-                    controlBotState: controlBotStateTypes.SetAgenda
-                })
+                this.controlBotSend(data.message.chat.id, "請在下方選擇議程", { inline_keyboard: keyboard });
             }
             // cancel command
             else if (data.message.text.search("/cancel") === 0) {
@@ -147,21 +152,19 @@ export class R0Controller extends Component {
                     this.controlBotSend(data.message.chat.id, "無效的模式");
                 }
             }
+        }
+        else if (data.callback_query) {
+            const callback_query = data.callback_query;
+            const newAgendaI = callback_query.data;
 
-            // set agenda
-            else if (this.state.controlBotState === controlBotStateTypes.SetAgenda) {
+            this.setState({
+                agenda: Agendas[newAgendaI],
+                autoAgenda: false,
+                controlBotState: controlBotStateTypes.ModeSelect
+            })
+            localStorage.agenda = newAgendaI;
 
-                const newAgendaI = Agendas.findIndex((v) => v.title === data.message.text);
-
-                this.setState({
-                    agenda: newAgendaI !== -1 ? Agendas[newAgendaI] : data.message.text,
-                    autoAgenda: false,
-                    controlBotState: controlBotStateTypes.ModeSelect
-                })
-                localStorage.agenda = newAgendaI ? newAgendaI : data.message.text
-
-                this.controlBotSend(data.message.chat.id, "議程設定為:" + data.message.text);
-            }
+            this.controlBotAnswerCallbackQuery(callback_query.id, "議程設定為:" + Agendas[newAgendaI].title);
         }
     }
 

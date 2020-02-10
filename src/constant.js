@@ -31,14 +31,6 @@ export const layoutControlModes = {
                 main: "SLIDO",
                 second: "IRC"
             }
-        },
-        "VISUAL+IRC": {
-            type: layoutTypes.LayoutA,
-            name: "VISUAL+IRC",
-            prop: {
-                main: "VISUAL",
-                second: "IRC"
-            }
         }
     },
     [agendaTypes.ForumMode]: {

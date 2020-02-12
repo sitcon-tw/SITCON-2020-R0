@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Test from './test';
-import R0Controller from './R0Page/controller';
+import R0Controller from './R0Page';
 
 function App() {
   return (

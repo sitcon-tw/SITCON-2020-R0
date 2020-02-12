@@ -1,4 +1,4 @@
-import { agendaTypes } from './R0Page/agendas'
+import { agendaTypes } from './agendas'
 
 export const layoutTypes = {
     LayoutA: "款式A",

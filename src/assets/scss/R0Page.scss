@@ -17,60 +17,6 @@ $irc-display-height:        750px;
 
     .main-content {
         width: 83%;
-
-        .now-agenda {
-            height: 8%;
-            background-color: black;
-            border-bottom: white solid 1px;
-            padding: 10px 0px;
-
-            .agenda {
-                height: 100%;
-                background-color: white;
-                display: inline-flex;
-                padding: 0px 25px;
-                align-items: center;
-                clip-path: polygon(0% 0%, calc(100% - 10px) 0%, 100% 100%, 0% 100%);
-
-                p {
-                    font-size: 18px;
-                    font-weight: 700;
-                }
-            }
-        }
-
-        .content {
-            height: 83%;
-            background-color: #322;
-            color: white;
-
-            .content-agenda {    
-                position: absolute;
-                top: 27%;
-                left: 8%;
-                max-width: 50%;
-
-                .title {
-                    margin-bottom: 50px;
-
-                    p {
-                        font-size: 60px;
-                        font-weight: 900;
-                    }
-                }
-
-                .name p {
-                    font-size: 36px;
-                    font-weight: 500;
-                }
-            }
-        }
-
-        .news {
-            height: 9%;
-            background-color: black;
-            border-top: white solid 1px;
-        }
     }
 
     .IRC-bar {
@@ -86,12 +32,6 @@ $irc-display-height:        750px;
 
         .IRC {
             height: 74%;
-            border-left: white solid 1px;
-        }
-
-        .bar-content {
-            height: 18%;
-            background-color: black;
             border-left: white solid 1px;
         }
     }

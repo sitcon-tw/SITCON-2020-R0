@@ -1,0 +1,20 @@
+.NowAgendaBar {
+    height: 8%;
+    background-color: black;
+    border-bottom: white solid 1px;
+    padding: 10px 0px;
+
+    .agenda {
+        height: 100%;
+        background-color: white;
+        display: inline-flex;
+        padding: 0px 25px;
+        align-items: center;
+        clip-path: polygon(0% 0%, calc(100% - 10px) 0%, 100% 100%, 0% 100%);
+
+        p {
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}

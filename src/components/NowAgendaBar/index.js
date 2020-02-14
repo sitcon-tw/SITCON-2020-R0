@@ -22,7 +22,7 @@ export class NowAgendaBar extends Component {
 
   render() {
       return (
-        <div className="now-agenda">
+        <div className="NowAgendaBar">
           <div className="agenda">
             <p>{this.agendaLoader(this.props.agenda)}</p>
           </div>

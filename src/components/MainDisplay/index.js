@@ -28,7 +28,7 @@ export class MainDisplay extends Component {
   
     render() {
       return (
-        <div className="content">
+        <div className="MainDisplay">
           {this.contentLoader(this.props.agenda)}
         </div>
       )

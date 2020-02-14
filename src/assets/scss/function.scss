@@ -1,0 +1,7 @@
+@function X_px($length) {
+    @return calc(100vw * #{$length} / 1920)
+}
+
+@function Y_px($length) {
+    @return calc(100vh * #{$length} / 1080)
+}

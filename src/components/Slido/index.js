@@ -6,7 +6,9 @@ export class Slido extends Component {
   // }
   render() {
     return (
-      <div className="slido">Slido</div>
+      <div className="slido">
+        <iframe title="test" src="https://wall.sli.do/event/ozdireqh" frameborder="0"></iframe>
+      </div>
     )
   }
 }

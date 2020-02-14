@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom';
 
 import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido } from '../components'
+
+const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 export class Test extends Component {
     constructor(props) {
         super(props);
@@ -147,7 +149,10 @@ export class Test extends Component {
         this.saveMessage([]);
     }
 
+
+
     render() {
+        let agenda = this.props.agenda ? this.props.agenda : NO_AGENDA_TEXT;
         return (
             <Router>
                 <Switch>
@@ -168,7 +173,7 @@ export class Test extends Component {
                     </Route>
                     <Route path="/test/NowAgendaBar">
                         <div className="test-NowAgendaBar">
-                            <NowAgendaBar />
+                            <NowAgendaBar agenda={agenda}/>
                         </div>
                     </Route>
                     <Route path="/test/MainDisplay">

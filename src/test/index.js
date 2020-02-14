@@ -1,4 +1,11 @@
 import React, { Component } from 'react'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from 'react-router-dom';
+
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido } from '../components'
 export class Test extends Component {
     constructor(props) {
         super(props);
@@ -142,14 +149,46 @@ export class Test extends Component {
 
     render() {
         return (
-            <div className="test">
-                Token: <input onChange={this.tokenInputOnChange} value={this.state.inputToken} />
-                <button onClick={this.saveToken} style={{ marginLeft: "10px" }}>Save Token</button>
-                <button onClick={this.clearSavedMsg} style={{ marginLeft: "10px" }}>Clear Message</button>
+            <Router>
+                <Switch>
+                    <Route exact path="/test">
+                        <div className="test">
+                            Token: <input onChange={this.tokenInputOnChange} value={this.state.inputToken} />
+                            <button onClick={this.saveToken} style={{ marginLeft: "10px" }}>Save Token</button>
+                            <button onClick={this.clearSavedMsg} style={{ marginLeft: "10px" }}>Clear Message</button>
 
-                {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null}
-                {this.msgTable()}
-            </div>
+                            {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null}
+                            {this.msgTable()}
+                        </div>
+                    </Route>
+                    <Route path="/test/IRC">
+                        <div className="test-IRC">
+                            <IRC />
+                        </div>
+                    </Route>
+                    <Route path="/test/NowAgendaBar">
+                        <div className="test-NowAgendaBar">
+                            <NowAgendaBar />
+                        </div>
+                    </Route>
+                    <Route path="/test/MainDisplay">
+                        <div className="test-MainDisplay">
+                            <MainDisplay />
+                        </div>
+                    </Route>
+                    <Route path="/test/ButtomBar">
+                        <div className="test-ButtomBar">
+                            <ButtomBar />
+                        </div>
+                    </Route>
+                    <Route path="/test/Slido">
+                        <div className="test-Slido">
+                            <Slido />
+                        </div>
+                    </Route>
+                </Switch>
+            </Router>
+
         );
     }
 }

@@ -10,6 +10,7 @@ const controlBotStateTypes = {
 const token = process.env.REACT_APP_CONTROL_BOT_TOKEN;
 
 export class R0Controller extends Component {
+    chatIds = [] // chatId of the users that use controller
 
     constructor(props) {
         super(props);
@@ -26,6 +27,8 @@ export class R0Controller extends Component {
 
         this.nowPlaying = this.nowPlaying.bind(this);
         this.controlBotUpdate = this.controlBotUpdate.bind(this);
+
+        this.chatIds = localStorage.chatIds ? JSON.parse(localStorage.chatIds) : [];
     }
 
     nowPlaying() {
@@ -38,9 +41,18 @@ export class R0Controller extends Component {
                 currentAgendaIndex--;
             }
 
-            this.setState({
-                agenda: currentAgendaIndex < 0 ? null : Agendas[currentAgendaIndex],
-            })
+            const agenda = currentAgendaIndex < 0 ? null : Agendas[currentAgendaIndex];
+
+
+            if (agenda !== this.state.agenda) {
+                this.setState({
+                    agenda
+                });
+
+                this.chatIds.forEach((id) => {
+                    this.controlBotSend(id);
+                });
+            }
         }
     }
 
@@ -52,10 +64,8 @@ export class R0Controller extends Component {
     controlBotSend(id, text, reply_markup) {
 
         let modeKeyboard = [];
-        if (typeof this.state.agenda === "object") {
-            const controlModes = layoutControlModes[this.state.agenda.type] || {};
-            Object.keys(controlModes).map(k => modeKeyboard.push({ text: k }))
-        }
+        const controlModes = this.getCurrentControlModes();
+        Object.keys(controlModes).map(k => modeKeyboard.push({ text: k }));
 
         fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
             method: "POST",
@@ -81,8 +91,21 @@ export class R0Controller extends Component {
         })
     }
 
+    getCurrentControlModes = () => {
+        let controlModes = [];
+        if (this.state.agenda && typeof this.state.agenda === "object") {
+            controlModes = layoutControlModes[this.state.agenda.type];
+        };
+
+        return controlModes;
+    }
+
     controlBotReceived(data) {
         if (data.message) {
+            if (this.chatIds.findIndex((id) => id === data.message.chat.id) === -1) {
+                this.chatIds.push(data.message.chat.id);
+            }
+
             // Agenda
             if (data.message.text.search("/auto") === 0) {
                 this.setState({
@@ -131,10 +154,7 @@ export class R0Controller extends Component {
 
             // select layout mode
             else if (this.state.controlBotState === controlBotStateTypes.ModeSelect) {
-                let controlModes = [];
-                if (typeof this.state.agenda === "object") {
-                    controlModes = layoutControlModes[this.state.agenda.type];
-                }
+                const controlModes = this.getCurrentControlModes();
 
                 let found = false;
                 Object.keys(controlModes).forEach((v) => {

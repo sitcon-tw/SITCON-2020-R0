@@ -30,15 +30,17 @@ export class R0Controller extends Component {
 
     nowPlaying() {
         let nowTime = new Date();
+
+        let currentAgendaIndex = Agendas.findIndex((e) => (e.endTime.hours > nowTime.getHours() || ((e.endTime.hours === nowTime.getHours()) && (e.endTime.minutes > nowTime.getMinutes()))));
+
         if (this.state.autoAgenda) {
-            for (let e of Agendas) {
-                if (e.endTime.hours > nowTime.getHours() || ((e.endTime.hours === nowTime.getHours()) && (e.endTime.minutes > nowTime.getMinutes()))) {
-                    this.setState({
-                        agenda: e
-                    });
-                    break;
-                }
+            while (currentAgendaIndex >= 0 && Agendas[currentAgendaIndex].type === agendaTypes.RestingMode) {
+                currentAgendaIndex--;
             }
+
+            this.setState({
+                agenda: currentAgendaIndex < 0 ? null : Agendas[currentAgendaIndex],
+            })
         }
     }
 

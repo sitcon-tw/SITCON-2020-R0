@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido } from '../components'
+import { Agendas, getAgendas } from '../R0Page/agendas';
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 export class Test extends Component {
@@ -17,16 +18,19 @@ export class Test extends Component {
             latestUpdateId: null,
             token: process.env.TG_BOT_TOKEN ? process.env.TG_BOT_TOKEN : null,
             inputToken: "",
-            stickersPath: {}
+            stickersPath: {},
+            agenda: '',
+            Agendas: Agendas
         };
 
         this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
         this.saveToken = this.saveToken.bind(this);
         this.clearSavedMsg = this.clearSavedMsg.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
+        this.nowPlaying = this.nowPlaying.bind(this)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({
             items: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : this.state.items,
             token: sessionStorage.getItem('bot_token')
@@ -36,6 +40,22 @@ export class Test extends Component {
         setInterval(() => {
             this.retriveMessage();
         }, 5000);
+        setInterval(this.nowPlaying, 1000)
+        
+        let agendas = await getAgendas()
+        if(agendas) this.setState({Agendas: agendas})
+    }
+
+    nowPlaying() {
+        let nowTime = new Date();
+        for (let e of this.state.Agendas) {
+            if (e.endTime.hours > nowTime.getHours() || ((e.endTime.hours === nowTime.getHours()) && (e.endTime.minutes > nowTime.getMinutes()))) {
+                this.setState({
+                    agenda: e
+                });
+                break;
+            }
+        }
     }
 
     retriveMessage() {
@@ -152,7 +172,7 @@ export class Test extends Component {
 
 
     render() {
-        let agenda = this.props.agenda ? this.props.agenda : NO_AGENDA_TEXT;
+        let agenda = this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT;
         return (
             <Router>
                 <Switch>
@@ -188,7 +208,7 @@ export class Test extends Component {
                     </Route>
                     <Route path="/test/Slido">
                         <div className="test-Slido">
-                            <Slido />
+                            <Slido agenda={agenda}/>
                         </div>
                     </Route>
                 </Switch>

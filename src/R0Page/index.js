@@ -8,27 +8,37 @@ const controlBotStateTypes = {
 }
 
 const token = process.env.REACT_APP_CONTROL_BOT_TOKEN;
+const defaultLayout = {
+    type: layoutTypes.LayoutA,
+    name: "EMPTY",
+    prop: {}
+};
 
 export class R0Controller extends Component {
     chatIds = [] // chatId of the users that use controller
 
     constructor(props) {
         super(props);
+
+        let agenda = "";
+
+        if (localStorage.agenda) {
+            agenda = Agendas[parseInt(localStorage.agenda)] ? Agendas[parseInt(localStorage.agenda)] : agenda;
+        }
+
         this.state = {
-            agenda: "",
-            autoAgenda: true,
+            agenda,
+            autoAgenda: !localStorage.autoAgenda || localStorage.autoAgenda === "true" ? true : false,
             controlBotState: controlBotStateTypes.ModeSelect,
-            currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : {
-                type: layoutTypes.LayoutA,
-                name: "EMPTY",
-                prop: {}
-            }
+            currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : defaultLayout
         }
 
         this.nowPlaying = this.nowPlaying.bind(this);
         this.controlBotUpdate = this.controlBotUpdate.bind(this);
 
         this.chatIds = localStorage.chatIds ? JSON.parse(localStorage.chatIds) : [];
+
+        localStorage.autoAgenda = this.state.autoAgenda;
     }
 
     nowPlaying() {
@@ -67,13 +77,15 @@ export class R0Controller extends Component {
         const controlModes = this.getCurrentControlModes();
         Object.keys(controlModes).map(k => modeKeyboard.push({ text: k }));
 
+        console.log(modeKeyboard);
+
         fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 chat_id: id,
                 text: text || (text !== false ? '目前狀態為：' + this.state.currentLayout.type + " / " + this.state.currentLayout.name + '\n目前議程為：' + (this.state.agenda && this.state.agenda.title ? this.state.agenda.title : this.state.agenda) : null),
-                reply_markup: reply_markup ? reply_markup : { keyboard: [modeKeyboard] }
+                reply_markup: reply_markup ? reply_markup : (modeKeyboard.length > 0 ? { keyboard: [modeKeyboard] } : { remove_keyboard: true })
             })
         })
     }
@@ -92,7 +104,7 @@ export class R0Controller extends Component {
     }
 
     getCurrentControlModes = () => {
-        let controlModes = [];
+        let controlModes = {};
         if (this.state.agenda && typeof this.state.agenda === "object") {
             controlModes = layoutControlModes[this.state.agenda.type];
         };
@@ -112,11 +124,15 @@ export class R0Controller extends Component {
                     autoAgenda: true
                 })
 
+                localStorage.autoAgenda = "true";
+
                 this.controlBotSend(data.message.chat.id, "切換為自動議程")
             } else if (data.message.text.search("/manual") === 0) {
                 this.setState({
                     autoAgenda: false
                 })
+
+                localStorage.autoAgenda = "false";
 
                 this.controlBotSend(data.message.chat.id, "切換為手動議程")
             }
@@ -183,8 +199,14 @@ export class R0Controller extends Component {
                 agenda: Agendas[newAgendaI],
                 autoAgenda: false,
                 controlBotState: controlBotStateTypes.ModeSelect
-            })
+            });
+
+            this.chatIds.forEach((id) => {
+                this.controlBotSend(id);
+            });
+
             localStorage.agenda = newAgendaI;
+            localStorage.autoAgenda = "false";
 
             this.controlBotAnswerCallbackQuery(callback_query.id, "議程設定為:" + Agendas[newAgendaI].title);
         }

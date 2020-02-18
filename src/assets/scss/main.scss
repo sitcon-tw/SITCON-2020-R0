@@ -1,10 +1,14 @@
 @import 'font';
+@import 'function';
 
 @import 'R0Page';
 @import 'test';
 
-@import 'IRC';
-@import 'NowAgendaBar';
+@import 'components/IRC';
+@import 'components/NowAgendaBar';
+@import 'components/Slido';
+@import 'components/MainDisplay';
+@import 'components/ButtomBar';
 
 * {
     border: 0;

@@ -1,4 +1,14 @@
 import React, { Component } from 'react'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from 'react-router-dom';
+
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido } from '../components'
+import { Agendas, getAgendas } from '../R0Page/agendas';
+
+const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 export class Test extends Component {
     constructor(props) {
         super(props);
@@ -8,16 +18,19 @@ export class Test extends Component {
             latestUpdateId: null,
             token: process.env.TG_BOT_TOKEN ? process.env.TG_BOT_TOKEN : null,
             inputToken: "",
-            stickersPath: {}
+            stickersPath: {},
+            agenda: '',
+            Agendas: Agendas
         };
 
         this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
         this.saveToken = this.saveToken.bind(this);
         this.clearSavedMsg = this.clearSavedMsg.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
+        this.nowPlaying = this.nowPlaying.bind(this)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({
             items: localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : this.state.items,
             token: sessionStorage.getItem('bot_token')
@@ -27,6 +40,22 @@ export class Test extends Component {
         setInterval(() => {
             this.retriveMessage();
         }, 5000);
+        setInterval(this.nowPlaying, 1000)
+        
+        let agendas = await getAgendas()
+        if(agendas) this.setState({Agendas: agendas})
+    }
+
+    nowPlaying() {
+        let nowTime = new Date();
+        for (let e of this.state.Agendas) {
+            if (e.endTime.hours > nowTime.getHours() || ((e.endTime.hours === nowTime.getHours()) && (e.endTime.minutes > nowTime.getMinutes()))) {
+                this.setState({
+                    agenda: e
+                });
+                break;
+            }
+        }
     }
 
     retriveMessage() {
@@ -140,16 +169,51 @@ export class Test extends Component {
         this.saveMessage([]);
     }
 
-    render() {
-        return (
-            <div className="test">
-                Token: <input onChange={this.tokenInputOnChange} value={this.state.inputToken} />
-                <button onClick={this.saveToken} style={{ marginLeft: "10px" }}>Save Token</button>
-                <button onClick={this.clearSavedMsg} style={{ marginLeft: "10px" }}>Clear Message</button>
 
-                {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null}
-                {this.msgTable()}
-            </div>
+
+    render() {
+        let agenda = this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT;
+        return (
+            <Router>
+                <Switch>
+                    <Route exact path="/test">
+                        <div className="test">
+                            Token: <input onChange={this.tokenInputOnChange} value={this.state.inputToken} />
+                            <button onClick={this.saveToken} style={{ marginLeft: "10px" }}>Save Token</button>
+                            <button onClick={this.clearSavedMsg} style={{ marginLeft: "10px" }}>Clear Message</button>
+
+                            {this.state.error ? <div style={{ marginBottom: "10px" }}>Error: {this.state.error.message}</div> : null}
+                            {this.msgTable()}
+                        </div>
+                    </Route>
+                    <Route path="/test/IRC">
+                        <div className="test-IRC">
+                            <IRC />
+                        </div>
+                    </Route>
+                    <Route path="/test/NowAgendaBar">
+                        <div className="test-NowAgendaBar">
+                            <NowAgendaBar agenda={agenda}/>
+                        </div>
+                    </Route>
+                    <Route path="/test/MainDisplay">
+                        <div className="test-MainDisplay">
+                            <MainDisplay />
+                        </div>
+                    </Route>
+                    <Route path="/test/ButtomBar">
+                        <div className="test-ButtomBar">
+                            <ButtomBar />
+                        </div>
+                    </Route>
+                    <Route path="/test/Slido">
+                        <div className="test-Slido">
+                            <Slido agenda={agenda}/>
+                        </div>
+                    </Route>
+                </Switch>
+            </Router>
+
         );
     }
 }

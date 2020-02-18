@@ -295,11 +295,22 @@ export const Agendas = [
 ]
 
 export const getAgendas = async () => {
-  const url = "https://sitcon.org/2020/json/session.json"
+  const url = 'https://sitcon.org/2020/json/session.json'
   let res = await fetch(url)
   let result = await res.json()
 
-  let data = result.sessions.filter(x => x.room === "R0").map(x => {
+  let data = result.sessions.filter(x => x.room === 'R0').map(x => {
+
+    let slido = null
+
+    if (x.qa) {
+      let token = x.qa.match(/([\w]+?)\/?$/)[1]
+      slido = {
+        link: x.qa,
+        iframe: 'https://wall.sli.do/event/' + token
+      }
+    }
+
     return {
       title: x.zh.title,
       name: x.speakers.map(y => {
@@ -312,9 +323,8 @@ export const getAgendas = async () => {
       endTime: {
         hours: new Date(x.end).getHours(),
         minutes: new Date(x.end).getMinutes()
-      }
+      }, slido
     }
   })
-  console.log(data)
   return data
 }

@@ -1,0 +1,25 @@
+.MainDisplay {
+    height: 83%;
+    color: white;
+
+    .content-agenda {    
+        position: absolute;
+        top: 27%;
+        left: 8%;
+        max-width: 50%;
+
+        .title {
+            margin-bottom: 50px;
+
+            p {
+                font-size: 60px;
+                font-weight: 900;
+            }
+        }
+
+        .name p {
+            font-size: 36px;
+            font-weight: 500;
+        }
+    }
+}

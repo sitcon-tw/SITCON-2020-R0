@@ -1,0 +1,46 @@
+.test {
+    &-IRC {
+        position: absolute;
+        top: Y_px(330);
+        right: 0;
+
+        width: X_px(320);
+        height: Y_px(660);
+    }
+
+    &-NowAgendaBar {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: X_px(1920);
+        height: Y_px(1080);
+    }
+
+    &-MainDisplay {
+        position: absolute;
+        top: Y_px(90);
+        left: 0;
+
+        width: X_px(1600);
+        height: Y_px(900);
+        background-color: black;
+    }
+
+    &-ButtomBar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        width: X_px(1920);
+        height: Y_px(90);
+    }
+
+    &-Slido {
+        position: absolute;
+        top: Y_px(330);
+        right: 0;
+        width: X_px(320);
+        height: Y_px(660);
+    }
+}

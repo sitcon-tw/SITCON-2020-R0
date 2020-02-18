@@ -1,9 +1,9 @@
 import { agendaTypes } from './agendas'
 
 export const layoutTypes = {
-    LayoutA: "款式A",
-    LayoutB: "款式B",
-    LayoutC: "款式C"
+    LayoutA: "一般",
+    LayoutB: "論壇",
+    LayoutC: "Lighting Talk"
 }
 
 export const layoutControlModes = {

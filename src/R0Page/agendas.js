@@ -137,7 +137,7 @@ export const Agendas = [
     type: agendaTypes.RestingMode,
   },
   {
-    title: '我也能讓Python幫忙操控電腦嗎？',
+    title: '我也能讓 Python 幫忙操控電腦嗎？',
     name: '陳怡升',
     startTime: {
       hours: 14,
@@ -190,7 +190,7 @@ export const Agendas = [
   },
   {
     title: '求職助手的開發起源和他的困難點',
-    name: '白天當Student',
+    name: '白天當 Student',
     startTime: {
       hours: 14,
       minutes: 50
@@ -241,7 +241,7 @@ export const Agendas = [
     type: agendaTypes.RestingMode,
   },
   {
-    title: 'CDN網站攻擊-這次換駭客當鬼來抓你了',
+    title: 'CDN 網站攻擊 - 這次換駭客當鬼來抓你了',
     name: 'Mico',
     startTime: {
       hours: 16,

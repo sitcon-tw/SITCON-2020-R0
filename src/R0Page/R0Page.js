@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { layoutTypes } from './constant'
-import { IRC, NowAgendaBar, MainDisplay, ButtomBar } from '../components'
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock } from '../components'
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 
@@ -16,9 +16,16 @@ class R0Page extends Component {
             <NowAgendaBar agenda={agenda} />
           </div>
           <div className="main">
-            <MainDisplay agenda={agenda} />
+            <div className="main-display">
+              <MainDisplay agenda={agenda} />
+            </div>
             <div className="side-bar">
-            <IRC />
+              <div className="irc">
+                <IRC />
+              </div>
+              <div className="side-block">
+                <SideBlock mode={'irc'}/>
+              </div>
             </div>
           </div>
           <div className="bottom-bar">

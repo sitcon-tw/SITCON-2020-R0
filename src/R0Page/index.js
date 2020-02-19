@@ -84,7 +84,7 @@ export class R0Controller extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 chat_id: id,
-                text: text || (text !== false ? '目前狀態為：' + this.state.currentLayout.type + " / " + this.state.currentLayout.name + '\n目前議程為：' + (this.state.agenda && this.state.agenda.title ? this.state.agenda.title : this.state.agenda) : null),
+                text: text || (text !== false ? '模式：' + (this.state.autoAgenda ? '自動（切換為手動 /manual）' : '手動（切換為自動 /auto）') + '\n版型：' + this.state.currentLayout.type + " > " + this.state.currentLayout.name + '\n議程：' + (this.state.agenda && this.state.agenda.title ? this.state.agenda.title : this.state.agenda) : null),
                 reply_markup: reply_markup ? reply_markup : (modeKeyboard.length > 0 ? { keyboard: [modeKeyboard] } : { remove_keyboard: true })
             })
         })
@@ -134,7 +134,7 @@ export class R0Controller extends Component {
 
                 localStorage.autoAgenda = "false";
 
-                this.controlBotSend(data.message.chat.id, "切換為手動議程")
+                this.controlBotSend(data.message.chat.id, "切換為手動議程\n選擇議程 /set")
             }
             else if (data.message.text.search("/set") === 0) {
                 let keyboard = [];
@@ -208,7 +208,7 @@ export class R0Controller extends Component {
             localStorage.agenda = newAgendaI;
             localStorage.autoAgenda = "false";
 
-            this.controlBotAnswerCallbackQuery(callback_query.id, "議程設定為:" + Agendas[newAgendaI].title);
+            this.controlBotAnswerCallbackQuery(callback_query.id, "議程設定為：" + Agendas[newAgendaI].title);
         }
     }
 

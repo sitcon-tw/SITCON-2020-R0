@@ -3,10 +3,6 @@ import React, { Component } from 'react'
 
 export class NowAgendaBar extends Component {
 
-  componentDidMount() {
-    setInterval(this.nowPlaying, 2000)
-  }
-
   agendaLoader(e) {
     let agenda = e
     if (typeof e === 'object') {

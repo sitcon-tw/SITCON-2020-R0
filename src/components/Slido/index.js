@@ -12,7 +12,7 @@ export class Slido extends Component {
       )
     } else {
       return (
-        <div className="slido"></div>
+        <div className="slido-disabled"></div>
       )
     }
   }

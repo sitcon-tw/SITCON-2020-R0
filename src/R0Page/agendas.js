@@ -17,7 +17,8 @@ export const Agendas = [
       hours: 9,
       minutes: 0
     },
-    type: agendaTypes.RestingMode,
+    slido: null,
+    type: agendaTypes.RestingMode
   },
   {
     title: '開幕',
@@ -30,7 +31,8 @@ export const Agendas = [
       hours: 9,
       minutes: 10
     },
-    type: agendaTypes.CommonMode,
+    slido: null,
+    type: agendaTypes.CommonMode
   },
   {
     title: 'Keynote',
@@ -43,7 +45,11 @@ export const Agendas = [
       hours: 10,
       minutes: 0
     },
-    type: agendaTypes.CommonMode,
+    slido: {
+      'link': 'https://sli.do/ozdireqh',
+      'iframe': 'https://wall.sli.do/event/ozdireqh'
+    },
+    type: agendaTypes.CommonMode
   },
   {
     title: '休息時間',
@@ -56,11 +62,12 @@ export const Agendas = [
       hours: 10,
       minutes: 10
     },
-    type: agendaTypes.RestingMode,
+    slido: null,
+    type: agendaTypes.RestingMode
   },
   {
-    title: 'Keynote',
-    name: '',
+    title: '學生參與式網路治理的機會與挑戰',
+    name: '陳文生',
     startTime: {
       hours: 10,
       minutes: 10
@@ -69,33 +76,11 @@ export const Agendas = [
       hours: 11,
       minutes: 0
     },
-    type: agendaTypes.CommonMode,
-  },
-  {
-    title: '休息時間',
-    name: '',
-    startTime: {
-      hours: 11,
-      minutes: 0
+    slido: {
+      'link': 'https://sli.do/uioorjnh',
+      'iframe': 'https://wall.sli.do/event/uioorjnh'
     },
-    endTime: {
-      hours: 11,
-      minutes: 10
-    },
-    type: agendaTypes.RestingMode,
-  },
-  {
-    title: '第一次做密室逃脫就上手',
-    name: '捲毛',
-    startTime: {
-      hours: 11,
-      minutes: 10
-    },
-    endTime: {
-      hours: 11,
-      minutes: 50
-    },
-    type: agendaTypes.CommonMode,
+    type: agendaTypes.CommonMode
   },
   {
     title: '午餐',
@@ -108,33 +93,22 @@ export const Agendas = [
       hours: 12,
       minutes: 40
     },
-    type: agendaTypes.RestingMode,
+    slido: null,
+    type: agendaTypes.CommonMode
   },
   {
-    title: '論壇',
-    name: '',
+    title: '第一次做密室逃脫就上手',
+    name: '捲毛',
     startTime: {
-      hours: 12,
-      minutes: 40
-    },
-    endTime: {
-      hours: 14,
-      minutes: 10
-    },
-    type: agendaTypes.ForumMode,
-  },
-  {
-    title: '休息時間',
-    name: '',
-    startTime: {
-      hours: 14,
+      hours: 11,
       minutes: 10
     },
     endTime: {
-      hours: 14,
-      minutes: 20
+      hours: 11,
+      minutes: 50
     },
-    type: agendaTypes.RestingMode,
+    slido: null,
+    type: agendaTypes.CommonMode
   },
   {
     title: '我也能讓 Python 幫忙操控電腦嗎？',
@@ -147,20 +121,11 @@ export const Agendas = [
       hours: 14,
       minutes: 30
     },
-    type: agendaTypes.CommonMode,
-  },
-  {
-    title: '換場',
-    name: '',
-    startTime: {
-      hours: 14,
-      minutes: 30
+    slido: {
+      'link': 'https://sli.do/8an7mvtb',
+      'iframe': 'https://wall.sli.do/event/8an7mvtb'
     },
-    endTime: {
-      hours: 14,
-      minutes: 35
-    },
-    type: agendaTypes.RestingMode,
+    type: agendaTypes.CommonMode
   },
   {
     title: '臉書資料探勘－鯉魚教の教主崇拜分析',
@@ -173,24 +138,15 @@ export const Agendas = [
       hours: 14,
       minutes: 45
     },
-    type: agendaTypes.CommonMode,
-  },
-  {
-    title: '換場',
-    name: '',
-    startTime: {
-      hours: 14,
-      minutes: 45
+    slido: {
+      'link': 'https://sli.do/by45cctq',
+      'iframe': 'https://wall.sli.do/event/by45cctq'
     },
-    endTime: {
-      hours: 14,
-      minutes: 50
-    },
-    type: agendaTypes.RestingMode,
+    type: agendaTypes.CommonMode
   },
   {
     title: '求職助手的開發起源和他的困難點',
-    name: '白天當 Student',
+    name: '白天當Student',
     startTime: {
       hours: 14,
       minutes: 50
@@ -199,20 +155,11 @@ export const Agendas = [
       hours: 15,
       minutes: 0
     },
-    type: agendaTypes.CommonMode,
-  },
-  {
-    title: '點心',
-    name: '',
-    startTime: {
-      hours: 15,
-      minutes: 0
+    slido: {
+      'link': 'https://sli.do/5opc27au',
+      'iframe': 'https://wall.sli.do/event/5opc27au'
     },
-    endTime: {
-      hours: 15,
-      minutes: 40
-    },
-    type: agendaTypes.RestingMode,
+    type: agendaTypes.CommonMode
   },
   {
     title: '就算是新手，有愛就沒把專案做出來，對吧',
@@ -225,20 +172,11 @@ export const Agendas = [
       hours: 16,
       minutes: 20
     },
-    type: agendaTypes.CommonMode,
-  },
-  {
-    title: '休息時間',
-    name: '',
-    startTime: {
-      hours: 16,
-      minutes: 20
+    slido: {
+      'link': 'https://sli.do/wu3rjw5r',
+      'iframe': 'https://wall.sli.do/event/wu3rjw5r'
     },
-    endTime: {
-      hours: 16,
-      minutes: 30
-    },
-    type: agendaTypes.RestingMode,
+    type: agendaTypes.CommonMode
   },
   {
     title: 'CDN 網站攻擊 - 這次換駭客當鬼來抓你了',
@@ -251,7 +189,98 @@ export const Agendas = [
       hours: 17,
       minutes: 10
     },
-    type: agendaTypes.CommonMode,
+    slido: {
+      'link': 'https://sli.do/nbopftjl',
+      'iframe': 'https://wall.sli.do/event/nbopftjl'
+    },
+    type: agendaTypes.CommonMode
+  },
+  {
+    title: '論壇',
+    name: '',
+    startTime: {
+      hours: 12,
+      minutes: 40
+    },
+    endTime: {
+      hours: 14,
+      minutes: 10
+    },
+    slido: {
+      'link': 'https://sli.do/dh59rkkn',
+      'iframe': 'https://wall.sli.do/event/dh59rkkn'
+    },
+    type: agendaTypes.ForumMode
+  },
+  {
+    title: '休息時間',
+    name: '',
+    startTime: {
+      hours: 14,
+      minutes: 10
+    },
+    endTime: {
+      hours: 14,
+      minutes: 20
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
+  },
+  {
+    title: '換場',
+    name: '',
+    startTime: {
+      hours: 14,
+      minutes: 30
+    },
+    endTime: {
+      hours: 14,
+      minutes: 35
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
+  },
+  {
+    title: '換場',
+    name: '',
+    startTime: {
+      hours: 14,
+      minutes: 45
+    },
+    endTime: {
+      hours: 14,
+      minutes: 50
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
+  },
+  {
+    title: '點心',
+    name: '',
+    startTime: {
+      hours: 15,
+      minutes: 0
+    },
+    endTime: {
+      hours: 15,
+      minutes: 40
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
+  },
+  {
+    title: '休息時間',
+    name: '',
+    startTime: {
+      hours: 16,
+      minutes: 20
+    },
+    endTime: {
+      hours: 16,
+      minutes: 30
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
   },
   {
     title: '休息時間',
@@ -264,7 +293,8 @@ export const Agendas = [
       hours: 17,
       minutes: 15
     },
-    type: agendaTypes.RestingMode,
+    slido: null,
+    type: agendaTypes.RestingMode
   },
   {
     title: 'Lightning Talk',
@@ -277,7 +307,8 @@ export const Agendas = [
       hours: 17,
       minutes: 40
     },
-    type: agendaTypes.LTMode,
+    slido: null,
+    type: agendaTypes.LTMode
   },
   {
     title: '閉幕',
@@ -290,7 +321,8 @@ export const Agendas = [
       hours: 18,
       minutes: 0
     },
-    type: agendaTypes.CommonMode,
+    slido: null,
+    type: agendaTypes.CommonMode
   }
 ]
 
@@ -302,6 +334,24 @@ export const getAgendas = async () => {
   let data = result.sessions.filter(x => x.room === 'R0').map(x => {
 
     let slido = null
+    let type = agendaTypes.CommonMode
+
+    switch (x.zh.title.trim()) {
+      case '入場時間':
+      case '休息時間':
+      case '換場':
+      case '點心':
+          type = agendaTypes.RestingMode
+          break
+      case '論壇':
+          type = agendaTypes.ForumMode
+          break
+      case 'Lightning Talk':
+          type = agendaTypes.LTMode
+          break
+      default:    
+          type = agendaTypes.CommonMode
+    }
 
     if (x.qa) {
       let token = x.qa.match(/([\w]+?)\/?$/)[1]
@@ -323,7 +373,9 @@ export const getAgendas = async () => {
       endTime: {
         hours: new Date(x.end).getHours(),
         minutes: new Date(x.end).getMinutes()
-      }, slido
+      },
+      slido,
+      type
     }
   })
   return data

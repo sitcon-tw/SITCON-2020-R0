@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { layoutTypes } from './constant'
-import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock } from '../components'
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock, Slido } from '../components'
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 
@@ -20,11 +20,11 @@ class R0Page extends Component {
               <MainDisplay agenda={agenda} />
             </div>
             <div className="side-bar">
-              <div className="irc">
-                <IRC />
-              </div>
               <div className="side-block">
                 <SideBlock mode={'irc'}/>
+              </div>
+              <div className="side-content">
+                <IRC />
               </div>
             </div>
           </div>
@@ -36,19 +36,51 @@ class R0Page extends Component {
     }
     else if (this.props.currentLayout.type === layoutTypes.LayoutB) {
       return (
-        <div className="integrated">
-          <IRC />
+        <div className="R0page">
+          <div className="top-bar">
+            <NowAgendaBar agenda={agenda} />
+          </div>
+          <div className="main">
+            <div className="main-display">
+              <MainDisplay agenda={agenda} />
+            </div>
+            <div className="side-bar">
+              <div className="side-content">
+                <Slido agenda={agenda}/>
+              </div>
+              <div className="side-block">
+                <SideBlock mode={'slido'}/>
+              </div>
+            </div>
+          </div>
+          <div className="bottom-bar">
+            <ButtomBar />
+          </div>
         </div>
       )
     }
     else if (this.props.currentLayout.type === layoutTypes.LayoutC) {
 
       return (
-        <div className="integrated">
-          <div className="main-content">
+        <div className="R0page">
+          <div className="top-bar">
             <NowAgendaBar agenda={agenda} />
-            <MainDisplay agenda={agenda} />
-            <div className="news"></div>
+          </div>
+          <div className="main">
+            <div className="main-display">
+              <Slido agenda={agenda}/>
+            </div>
+            <div className="side-bar">
+              <div className="side-content">
+                <IRC />
+              </div>
+              <div className="side-block">
+                <SideBlock mode={'irc'}/>
+              </div>
+            </div>
+          </div>
+          <div className="bottom-bar">
+            <ButtomBar />
           </div>
         </div>
       )

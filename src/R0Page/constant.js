@@ -17,7 +17,7 @@ export const layoutControlModes = {
             }
         },
         "PPT+SLIDO": {
-            type: layoutTypes.LayoutA,
+            type: layoutTypes.LayoutB,
             name: "PPT+SLIDO",
             prop: {
                 main: "PPT",
@@ -25,7 +25,7 @@ export const layoutControlModes = {
             }
         },
         "SLIDO+IRC": {
-            type: layoutTypes.LayoutA,
+            type: layoutTypes.LayoutC,
             name: "SLIDO+IRC",
             prop: {
                 main: "SLIDO",

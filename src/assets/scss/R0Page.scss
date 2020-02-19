@@ -1,38 +1,55 @@
-$top-bar-width:             1080px;
-$top-bar-height:            90px;
-
-$bottom-bar-width:          1080px;
-$bottom-bar-height:         90px;
-
-$main-display-width:        1600px;
-$main-display-height:       900px;
-
-$irc-display-width:         320px;
-$irc-display-height:        750px;
-
-.integrated {
-    display: flex;
+.R0page {
     width: 100vw;
     height: 100vh;
 
-    .main-content {
-        width: 83%;
+    .top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: X_px(1920);
+        height: Y_px(90);
     }
 
-    .IRC-bar {
-        width: 18%;
+    .main {
+        position: fixed;
+        top: Y_px(90);
+        left: 0;
+        width: X_px(1920);
+        height: Y_px(900);
+
+        .MainDisplay {
+            position: fixed;
+            top: Y_px(90);
+            left: 0;
+            width: X_px(1600);
+            height: Y_px(900);
+        }
+
+        .side-bar {
+
+            position: fixed;
+            top: Y_px(90);
+            right: 0;
+            width: X_px(320);
+            height: Y_px(900);
+            .IRC {
+                position: fixed;
+                top: Y_px(90);
+                right: 0;
+                width: X_px(320);
+                height: Y_px(900);
+            }
+        }
+
         
-        border-bottom: white solid 1px;
-
-        .live {
-            height: 8%;
-            background-color: black;
-            border-bottom: white solid 1px;
-        }
-
-        .IRC {
-            height: 74%;
-            border-left: white solid 1px;
-        }
     }
+
+    .bottom-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0; 
+        width: X_px(1920);
+        height: Y_px(90);
+    }
+
 }

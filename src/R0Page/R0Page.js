@@ -11,15 +11,17 @@ class R0Page extends Component {
 
     if (this.props.currentLayout.type === layoutTypes.LayoutA) {
       return (
-        <div className="integrated">
-          <div className="main-content">
+        <div className="R0page">
+          <div className="top-bar">
             <NowAgendaBar agenda={agenda} />
-            <MainDisplay agenda={agenda} />
-            <div className="news"></div>
           </div>
-          <div className="IRC-bar">
-            <div className="live"></div>
+          <div className="main">
+            <MainDisplay agenda={agenda} />
+            <div className="side-bar">
             <IRC />
+            </div>
+          </div>
+          <div className="bottom-bar">
             <ButtomBar />
           </div>
         </div>

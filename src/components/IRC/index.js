@@ -98,11 +98,10 @@ export class IRC extends Component {
     }
 
     transferDate(date) {
-        let nowTime = new Date(date * 1000)
-        let AMPM = 'AM'
-        if (nowTime.getHours() >= 12) AMPM = 'PM'
-        if (nowTime.getSeconds() < 10) return `${AMPM} ${nowTime.getHours()}:${nowTime.getMinutes()}:0${nowTime.getSeconds()}`
-        return `${AMPM} ${nowTime.getHours()}:${nowTime.getMinutes()}:${nowTime.getSeconds()}`
+        let now = new Date(date * 1000)
+        let hours = now.getHours().toString().padStart(2, '0')
+        let minutes = now.getMinutes().toString().padStart(2, '0')
+        return hours + ':' + minutes
     }
 
     msgTable() {
@@ -123,13 +122,14 @@ export class IRC extends Component {
 
                     return (
                         <div key={key} className="message">
-                            <div className="time">
-                                <a href='#messages'>
-                                    {this.transferDate(item.message.date)}
-                                </a>
-                            </div>
+                            
                             <div className="word">
                                 {item.message.chat.username}: {item.message.text ? item.message.text.replace(/^<(.+)>/, '$1') : (item.message.sticker ? <img width="100px" height="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> : <strong>Non Text or sticker</strong>)}
+                            </div>
+                            <div className="time">
+                                
+                                    {this.transferDate(item.message.date)}
+                            
                             </div>
                         </div>
                     )

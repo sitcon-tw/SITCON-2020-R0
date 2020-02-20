@@ -16,14 +16,33 @@ export class NowAgendaBar extends Component {
     return agenda
   }
 
+  getTime() {
+    let now = new Date()
+    let hours = now.getHours().toString().padStart(2, '0')
+    let minutes = now.getMinutes().toString().padStart(2, '0')
+    return hours + ':' + minutes
+  }
+
   render() {
+    if(typeof this.props.agenda === 'object')
       return (
         <div className="NowAgendaBar">
           <div className="agenda">
-            <p>{this.agendaLoader(this.props.agenda)}</p>
+            <div className="agenda-time">{ this.getTime() }</div>
+            <div className="agenda-title">{ this.props.agenda.title }</div>
+            <div className="agenda-name">{ this.props.agenda.name }</div>
           </div>
         </div>
       )
+    else
+        return (
+          <div className="NowAgendaBar">
+            <div className="agenda">
+            <div className="agenda-time">{ this.getTime() }</div>
+            <div className="agenda-title">{ this.props.agenda }</div>
+          </div>
+        </div>
+        )
   }
 }
 

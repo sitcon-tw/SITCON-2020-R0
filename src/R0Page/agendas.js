@@ -111,6 +111,20 @@ export const Agendas = [
     type: agendaTypes.CommonMode
   },
   {
+    title: '休息時間',
+    name: '',
+    startTime: {
+      hours: 11,
+      minutes: 0
+    },
+    endTime: {
+      hours: 11,
+      minutes: 10
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
+  },
+  {
     title: '我也能讓 Python 幫忙操控電腦嗎？',
     name: '陳怡升',
     startTime: {

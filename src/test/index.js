@@ -5,7 +5,7 @@ import {
     Route
 } from 'react-router-dom';
 
-import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido } from '../components'
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido, FlashCard } from '../components'
 import { Agendas, getAgendas } from '../R0Page/agendas';
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
@@ -20,7 +20,8 @@ export class Test extends Component {
             inputToken: "",
             stickersPath: {},
             agenda: '',
-            Agendas: Agendas
+            Agendas: Agendas,
+            Speaker: 0
         };
 
         this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
@@ -28,6 +29,7 @@ export class Test extends Component {
         this.clearSavedMsg = this.clearSavedMsg.bind(this);
         this.saveMessage = this.saveMessage.bind(this);
         this.nowPlaying = this.nowPlaying.bind(this)
+        this.changeSpeaker = this.changeSpeaker.bind(this)
     }
 
     async componentDidMount() {
@@ -169,7 +171,14 @@ export class Test extends Component {
         this.saveMessage([]);
     }
 
-
+    changeSpeaker() {
+        if(this.state.Speaker === 2) {
+            this.setState({Speaker: 0})
+        }
+        else {
+            this.setState({Speaker: this.state.Speaker+1})
+        }
+    }
 
     render() {
         let agenda = this.state.agenda ? this.state.agenda : NO_AGENDA_TEXT;
@@ -209,6 +218,12 @@ export class Test extends Component {
                     <Route path="/test/Slido">
                         <div className="test-Slido">
                             <Slido agenda={agenda}/>
+                        </div>
+                    </Route>
+                    <Route path="/test/FlashCard">
+                        <div className="test-FlashCard">
+                            <FlashCard speaker={this.state.Speaker}/>
+                            <button onClick={this.changeSpeaker}>Change!</button>
                         </div>
                     </Route>
                 </Switch>

@@ -43,4 +43,15 @@
         width: X_px(320);
         height: Y_px(660);
     }
+
+    &-FlashCard {
+        width: 100vw;
+        height: 100vh;
+
+        button {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
 }

@@ -9,6 +9,7 @@ import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido, FlashCard } from '../
 import { Agendas, getAgendas } from '../R0Page/agendas';
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
+const speakers = ['1.png', '2.png', '3.png']
 export class Test extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +22,7 @@ export class Test extends Component {
             stickersPath: {},
             agenda: '',
             Agendas: Agendas,
-            Speaker: 0
+            nowSpeaker: 0
         };
 
         this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
@@ -172,11 +173,11 @@ export class Test extends Component {
     }
 
     changeSpeaker() {
-        if(this.state.Speaker === 2) {
-            this.setState({Speaker: 0})
+        if(this.state.nowSpeaker === speakers.length-1) {
+            this.setState({nowSpeaker: 0})
         }
         else {
-            this.setState({Speaker: this.state.Speaker+1})
+            this.setState({nowSpeaker: this.state.nowSpeaker+1})
         }
     }
 
@@ -222,7 +223,7 @@ export class Test extends Component {
                     </Route>
                     <Route path="/test/FlashCard">
                         <div className="test-FlashCard">
-                            <FlashCard speaker={this.state.Speaker}/>
+                            <FlashCard nowSpeaker={this.state.nowSpeaker} speakers={speakers}/>
                             <button onClick={this.changeSpeaker}>Change!</button>
                         </div>
                     </Route>

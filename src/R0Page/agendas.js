@@ -94,7 +94,7 @@ export const Agendas = [
       minutes: 40
     },
     slido: null,
-    type: agendaTypes.CommonMode
+    type: agendaTypes.RestingMode
   },
   {
     title: '第一次做密室逃脫就上手',

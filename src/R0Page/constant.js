@@ -12,24 +12,24 @@ export const layoutControlModes = {
             type: layoutTypes.LayoutA,
             name: "PPT+IRC",
             prop: {
-                main: "PPT",
-                second: "IRC"
+                main: "ppt",
+                second: "irc"
             }
         },
         "PPT+SLIDO": {
-            type: layoutTypes.LayoutB,
+            type: layoutTypes.LayoutA,
             name: "PPT+SLIDO",
             prop: {
-                main: "PPT",
-                second: "SLIDO"
+                main: "ppt",
+                second: "slido"
             }
         },
         "SLIDO+IRC": {
-            type: layoutTypes.LayoutC,
+            type: layoutTypes.LayoutA,
             name: "SLIDO+IRC",
             prop: {
-                main: "SLIDO",
-                second: "IRC"
+                main: "slido",
+                second: "irc"
             }
         }
     },
@@ -55,24 +55,24 @@ export const layoutControlModes = {
             type: layoutTypes.LayoutA,
             name: "PPT+IRC",
             prop: {
-                main: "PPT",
-                second: "IRC"
+                main: "ppt",
+                second: "irc"
             }
         },
         "STBY": {
             type: layoutTypes.LayoutA,
             name: "STBY",
             prop: {
-                main: "VISUAL",
-                second: "IRC"
+                main: "visual",
+                second: "irc"
             }
         },
         "TIMEUP": {
             type: layoutTypes.LayoutA,
             name: "TIMEUP",
             prop: {
-                main: "VISUAL",
-                second: "IRC",
+                main: "visual",
+                second: "irc",
                 timeUp: true
             }
         }

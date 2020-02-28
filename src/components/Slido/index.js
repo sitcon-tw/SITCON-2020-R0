@@ -7,7 +7,7 @@ export class Slido extends Component {
     if(slido) {
       return (
         <div className="slido">
-          <iframe title="test" src={slido.iframe} frameborder="0"></iframe>
+          <iframe title="test" src={slido.iframe} frameBorder="0"></iframe>
         </div>
       )
     } else {

@@ -17,14 +17,28 @@ class R0Page extends Component {
           </div>
           <div className="main">
             <div className="main-display">
-              <MainDisplay agenda={agenda} />
+              {
+                this.props.currentLayout.prop.main === "slido" ?
+                  <Slido agenda={agenda} /> :
+                  this.props.currentLayout.prop.main === "visual" ?
+                    <>
+                      <h1>Visual</h1>
+                    </> :
+                    <MainDisplay agenda={agenda} />
+              }
             </div>
             <div className="side-bar">
               <div className="side-block">
-                <SideBlock mode={'irc'}/>
+                <SideBlock mode={this.props.currentLayout.prop.second} />
               </div>
               <div className="side-content">
-                <IRC />
+                {
+                  this.props.currentLayout.prop.second === "irc" ?
+                    <IRC /> :
+                    this.props.currentLayout.prop.second === "slido" ?
+                      <Slido agenda={agenda} /> :
+                      null
+                }
               </div>
             </div>
           </div>
@@ -46,10 +60,10 @@ class R0Page extends Component {
             </div>
             <div className="side-bar">
               <div className="side-content">
-                <Slido agenda={agenda}/>
+                <Slido agenda={agenda} />
               </div>
               <div className="side-block">
-                <SideBlock mode={'slido'}/>
+                <SideBlock mode={'slido'} />
               </div>
             </div>
           </div>
@@ -68,14 +82,14 @@ class R0Page extends Component {
           </div>
           <div className="main">
             <div className="main-display">
-              <Slido agenda={agenda}/>
+              <Slido agenda={agenda} />
             </div>
             <div className="side-bar">
               <div className="side-content">
                 <IRC />
               </div>
               <div className="side-block">
-                <SideBlock mode={'irc'}/>
+                <SideBlock mode={'irc'} />
               </div>
             </div>
           </div>

@@ -83,15 +83,15 @@ export const Agendas = [
     type: agendaTypes.CommonMode
   },
   {
-    title: '午餐',
+    title: '休息時間',
     name: '',
     startTime: {
       hours: 11,
-      minutes: 50
+      minutes: 0
     },
     endTime: {
-      hours: 12,
-      minutes: 40
+      hours: 11,
+      minutes: 10
     },
     slido: null,
     type: agendaTypes.RestingMode
@@ -111,103 +111,18 @@ export const Agendas = [
     type: agendaTypes.CommonMode
   },
   {
-    title: '休息時間',
+    title: '午餐',
     name: '',
     startTime: {
       hours: 11,
-      minutes: 0
-    },
-    endTime: {
-      hours: 11,
-      minutes: 10
-    },
-    slido: null,
-    type: agendaTypes.RestingMode
-  },
-  {
-    title: '我也能讓 Python 幫忙操控電腦嗎？',
-    name: '陳怡升',
-    startTime: {
-      hours: 14,
-      minutes: 20
-    },
-    endTime: {
-      hours: 14,
-      minutes: 30
-    },
-    slido: {
-      'link': 'https://sli.do/8an7mvtb',
-      'iframe': 'https://wall.sli.do/event/8an7mvtb'
-    },
-    type: agendaTypes.CommonMode
-  },
-  {
-    title: '臉書資料探勘－鯉魚教の教主崇拜分析',
-    name: 'isekai',
-    startTime: {
-      hours: 14,
-      minutes: 35
-    },
-    endTime: {
-      hours: 14,
-      minutes: 45
-    },
-    slido: {
-      'link': 'https://sli.do/by45cctq',
-      'iframe': 'https://wall.sli.do/event/by45cctq'
-    },
-    type: agendaTypes.CommonMode
-  },
-  {
-    title: '求職助手的開發起源和他的困難點',
-    name: '白天當Student',
-    startTime: {
-      hours: 14,
       minutes: 50
     },
     endTime: {
-      hours: 15,
-      minutes: 0
-    },
-    slido: {
-      'link': 'https://sli.do/5opc27au',
-      'iframe': 'https://wall.sli.do/event/5opc27au'
-    },
-    type: agendaTypes.CommonMode
-  },
-  {
-    title: '就算是新手，有愛就沒把專案做出來，對吧',
-    name: '宏宏',
-    startTime: {
-      hours: 15,
+      hours: 12,
       minutes: 40
     },
-    endTime: {
-      hours: 16,
-      minutes: 20
-    },
-    slido: {
-      'link': 'https://sli.do/wu3rjw5r',
-      'iframe': 'https://wall.sli.do/event/wu3rjw5r'
-    },
-    type: agendaTypes.CommonMode
-  },
-  {
-    title: 'CDN 網站攻擊 - 這次換駭客當鬼來抓你了',
-    name: 'Mico',
-    startTime: {
-      hours: 16,
-      minutes: 30
-    },
-    endTime: {
-      hours: 17,
-      minutes: 10
-    },
-    slido: {
-      'link': 'https://sli.do/nbopftjl',
-      'iframe': 'https://wall.sli.do/event/nbopftjl'
-    },
-    type: agendaTypes.CommonMode
+    slido: null,
+    type: agendaTypes.RestingMode
   },
   {
     title: '論壇',
@@ -241,6 +156,23 @@ export const Agendas = [
     type: agendaTypes.RestingMode
   },
   {
+    title: '我也能讓 Python 幫忙操控電腦嗎？',
+    name: '陳怡升',
+    startTime: {
+      hours: 14,
+      minutes: 20
+    },
+    endTime: {
+      hours: 14,
+      minutes: 30
+    },
+    slido: {
+      'link': 'https://sli.do/8an7mvtb',
+      'iframe': 'https://wall.sli.do/event/8an7mvtb'
+    },
+    type: agendaTypes.CommonMode
+  },
+  {
     title: '換場',
     name: '',
     startTime: {
@@ -253,6 +185,23 @@ export const Agendas = [
     },
     slido: null,
     type: agendaTypes.RestingMode
+  },
+  {
+    title: '臉書資料探勘－鯉魚教の教主崇拜分析',
+    name: 'isekai',
+    startTime: {
+      hours: 14,
+      minutes: 35
+    },
+    endTime: {
+      hours: 14,
+      minutes: 45
+    },
+    slido: {
+      'link': 'https://sli.do/by45cctq',
+      'iframe': 'https://wall.sli.do/event/by45cctq'
+    },
+    type: agendaTypes.CommonMode
   },
   {
     title: '換場',
@@ -269,6 +218,23 @@ export const Agendas = [
     type: agendaTypes.RestingMode
   },
   {
+    title: '求職助手的開發起源和他的困難點',
+    name: '白天當Student',
+    startTime: {
+      hours: 14,
+      minutes: 50
+    },
+    endTime: {
+      hours: 15,
+      minutes: 0
+    },
+    slido: {
+      'link': 'https://sli.do/5opc27au',
+      'iframe': 'https://wall.sli.do/event/5opc27au'
+    },
+    type: agendaTypes.CommonMode
+  },
+  {
     title: '點心',
     name: '',
     startTime: {
@@ -283,6 +249,23 @@ export const Agendas = [
     type: agendaTypes.RestingMode
   },
   {
+    title: '就算是新手，有愛就沒把專案做出來，對吧',
+    name: '宏宏',
+    startTime: {
+      hours: 15,
+      minutes: 40
+    },
+    endTime: {
+      hours: 16,
+      minutes: 20
+    },
+    slido: {
+      'link': 'https://sli.do/wu3rjw5r',
+      'iframe': 'https://wall.sli.do/event/wu3rjw5r'
+    },
+    type: agendaTypes.CommonMode
+  },
+  {
     title: '休息時間',
     name: '',
     startTime: {
@@ -295,6 +278,23 @@ export const Agendas = [
     },
     slido: null,
     type: agendaTypes.RestingMode
+  },
+  {
+    title: 'CDN 網站攻擊 - 這次換駭客當鬼來抓你了',
+    name: 'Mico',
+    startTime: {
+      hours: 16,
+      minutes: 30
+    },
+    endTime: {
+      hours: 17,
+      minutes: 10
+    },
+    slido: {
+      'link': 'https://sli.do/nbopftjl',
+      'iframe': 'https://wall.sli.do/event/nbopftjl'
+    },
+    type: agendaTypes.CommonMode
   },
   {
     title: '休息時間',
@@ -391,6 +391,10 @@ export const getAgendas = async () => {
       slido,
       type
     }
+  })
+
+  data = data.sort((m, n) => {
+    return (m.startTime.hours*60 + m.startTime.minutes) - (n.startTime.hours*60 + n.startTime.minutes)
   })
   return data
 }

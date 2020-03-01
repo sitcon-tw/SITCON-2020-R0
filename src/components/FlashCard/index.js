@@ -7,14 +7,14 @@ export class FlashCard extends Component {
         return(
             <div className="FlashCard">
                 {
-                    this.props.speakers.map((e, i) => (
+                    this.props.forumSpeakers.map((e, i) => (
                         <CSSTransition
                             key={i}
-                            in={ this.props.nowSpeaker === i }
+                            in={ this.props.nowForumSpeaker.name === e.name }
                             timeout={1000}
                             classNames="speakers"
                         >
-                            <img src={`/img/${e}`} alt="" key={'img'+i} className={ `${ (this.props.nowSpeaker === i) ? 'active' : '' }` }/>
+                            <img src={`/img/${e.url}`} alt="" key={'img'+i} className={ `${ (this.props.nowForumSpeaker.name === e.name) ? 'active' : '' }` }/>
                         </CSSTransition>
                     ))
                 }

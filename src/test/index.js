@@ -7,9 +7,9 @@ import {
 
 import { IRC, NowAgendaBar, MainDisplay, ButtomBar, Slido, FlashCard } from '../components'
 import { Agendas, getAgendas } from '../R0Page/agendas';
+import { forumSpeakers } from '../R0Page/constant'
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
-const speakers = ['1.png', '2.png', '3.png']
 export class Test extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +22,10 @@ export class Test extends Component {
             stickersPath: {},
             agenda: '',
             Agendas: Agendas,
-            nowSpeaker: 0
+            nowForumSpeaker: {
+                name: 'Sharp',
+                url: '1.png'
+            }
         };
 
         this.tokenInputOnChange = this.tokenInputOnChange.bind(this);
@@ -173,12 +176,11 @@ export class Test extends Component {
     }
 
     changeSpeaker() {
-        if(this.state.nowSpeaker === speakers.length-1) {
-            this.setState({nowSpeaker: 0})
-        }
-        else {
-            this.setState({nowSpeaker: this.state.nowSpeaker+1})
-        }
+        let index = forumSpeakers.findIndex(e => e.name === this.state.nowForumSpeaker.name)
+        if(index === forumSpeakers.length-1) index = -1
+        this.setState({
+            nowForumSpeaker: forumSpeakers[index+1]
+        })
     }
 
     render() {
@@ -223,7 +225,7 @@ export class Test extends Component {
                     </Route>
                     <Route path="/test/FlashCard">
                         <div className="test-FlashCard">
-                            <FlashCard nowSpeaker={this.state.nowSpeaker} speakers={speakers}/>
+                            <FlashCard nowForumSpeaker={this.state.nowForumSpeaker} forumSpeakers={forumSpeakers}/>
                             <button onClick={this.changeSpeaker}>Change!</button>
                         </div>
                     </Route>

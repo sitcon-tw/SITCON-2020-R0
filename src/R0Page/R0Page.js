@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { layoutTypes } from './constant'
-import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock, Slido } from '../components'
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock, Slido, FlashCard } from '../components'
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
-
 class R0Page extends Component {
 
   render() {
@@ -55,16 +54,14 @@ class R0Page extends Component {
             <NowAgendaBar agenda={agenda} />
           </div>
           <div className="main">
-            <div className="main-display">
-              <MainDisplay agenda={agenda} />
+            <div className="forum-slido">
+              <Slido agenda={agenda} />
             </div>
-            <div className="side-bar">
-              <div className="side-content">
-                <Slido agenda={agenda} />
-              </div>
-              <div className="side-block">
-                <SideBlock mode={'slido'} />
-              </div>
+            <div className="forum-cam">
+              <MainDisplay />
+            </div>
+            <div className="forum-card">
+              <FlashCard forumSpeakers={this.props.forumSpeakers} nowForumSpeaker={this.props.nowForumSpeaker}/>
             </div>
           </div>
           <div className="bottom-bar">
@@ -97,6 +94,7 @@ class R0Page extends Component {
             <ButtomBar />
           </div>
         </div>
+        
       )
     }
 

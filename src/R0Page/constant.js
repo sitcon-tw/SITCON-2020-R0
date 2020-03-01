@@ -34,19 +34,9 @@ export const layoutControlModes = {
         }
     },
     [agendaTypes.ForumMode]: {
-        "PPT": {
+        "MAIN": {
             type: layoutTypes.LayoutB,
-            name: "PPT",
-            prop: {}
-        },
-        "TITLE": {
-            type: layoutTypes.LayoutB,
-            name: "TITLE",
-            prop: {}
-        },
-        "SLIDO": {
-            type: layoutTypes.LayoutB,
-            name: "SLIDO",
+            name: "MAIN",
             prop: {}
         }
     },
@@ -78,3 +68,18 @@ export const layoutControlModes = {
         }
     }
 }
+
+export const forumSpeakers = [
+    {
+        name: 'Sharp',
+        url: '1.png'
+    },
+    {
+        name: 'Stone',
+        url: '2.png'
+    },
+    {
+        name: 'Seed',
+        url: '3.png'
+    }
+]

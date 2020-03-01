@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Agendas, agendaTypes } from './agendas'
 import R0Page from './R0Page'
-import { layoutTypes, layoutControlModes } from './constant'
+import { layoutTypes, layoutControlModes, forumSpeakers } from './constant'
 
 const controlBotStateTypes = {
     ModeSelect: 1
@@ -13,6 +13,10 @@ const defaultLayout = {
     name: "EMPTY",
     prop: {}
 };
+const defaultSpeaker = {
+    name: 'Sharp',
+    url: '1.png'
+}
 
 export class R0Controller extends Component {
     chatIds = [] // chatId of the users that use controller
@@ -30,7 +34,8 @@ export class R0Controller extends Component {
             agenda,
             autoAgenda: !localStorage.autoAgenda || localStorage.autoAgenda === "true" ? true : false,
             controlBotState: controlBotStateTypes.ModeSelect,
-            currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : defaultLayout
+            currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : defaultLayout,
+            nowForumSpeaker: localStorage.ForumSpeaker ? JSON.parse(localStorage.ForumSpeaker) : defaultSpeaker,
         }
 
         this.nowPlaying = this.nowPlaying.bind(this);
@@ -80,7 +85,13 @@ export class R0Controller extends Component {
 
         let modeKeyboard = [];
         const controlModes = this.getCurrentControlModes();
-        Object.keys(controlModes).map(k => modeKeyboard.push({ text: k }));
+        if (this.state.agenda.type === agendaTypes.ForumMode) {
+            forumSpeakers.map(e => modeKeyboard.push({ text: e.name }))
+        }
+        else {
+            Object.keys(controlModes).map(k => modeKeyboard.push({ text: k }));
+        }
+
 
         console.log(modeKeyboard);
 
@@ -119,6 +130,7 @@ export class R0Controller extends Component {
 
     controlBotReceived(data) {
         if (data.message) {
+            console.log(data.message)
             if (this.chatIds.findIndex((id) => id === data.message.chat.id) === -1) {
                 this.chatIds.push(data.message.chat.id);
             }
@@ -132,6 +144,7 @@ export class R0Controller extends Component {
                 localStorage.autoAgenda = "true";
 
                 this.controlBotSend(data.message.chat.id, "切換為自動議程")
+                this.nowPlaying()
             } else if (data.message.text.search("/manual") === 0) {
                 this.setState({
                     autoAgenda: false
@@ -175,21 +188,28 @@ export class R0Controller extends Component {
 
             // select layout mode
             else if (this.state.controlBotState === controlBotStateTypes.ModeSelect) {
-                const controlModes = this.getCurrentControlModes();
-
-                let found = false;
-                Object.keys(controlModes).forEach((v) => {
-                    if (v === data.message.text) {
-                        found = true;
-                    }
-                });
-
+                let found = true;
+                // Object.keys(controlModes).forEach((v) => {
+                //     if (v === data.message.text) {
+                //         found = true;
+                //     }
+                // });
+                console.log(found)
                 if (found) {
-                    this.setState({
-                        currentLayout: controlModes[data.message.text]
-                    });
+                    let controlModes = this.getCurrentControlModes()
+                    if (this.state.agenda.type === agendaTypes.ForumMode) {
+                        let index = forumSpeakers.findIndex(e => e.name === data.message.text)
+                        this.setState({
+                            currentLayout: controlModes['MAIN'],
+                            nowForumSpeaker: forumSpeakers[index]
+                        })
+                    } else {
+                        this.setState({
+                            currentLayout: controlModes[data.message.text]
+                        });
+                    }
 
-                    localStorage.currentLayout = JSON.stringify(controlModes[data.message.text]);
+                    localStorage.currentLayout = JSON.stringify(this.state.currentLayout);
                     this.controlBotSend(data.message.chat.id, null);
                 } else {
                     this.controlBotSend(data.message.chat.id, "無效的模式");
@@ -251,7 +271,13 @@ export class R0Controller extends Component {
 
     render() {
         return (
-            <R0Page currentLayout={this.state.currentLayout} autoAgenda={this.state.autoAgenda} agenda={this.state.agenda} />
+            <R0Page
+                currentLayout={this.state.currentLayout}
+                autoAgenda={this.state.autoAgenda}
+                agenda={this.state.agenda}
+                forumSpeakers={forumSpeakers}
+                nowForumSpeaker={this.state.nowForumSpeaker}
+            />
         )
     }
 }

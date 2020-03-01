@@ -68,4 +68,30 @@
         height: Y_px(90);
     }
 
+    .forum {
+
+        &-slido {
+            position: fixed;
+            top: Y_px(90);
+            left: 0;
+            width: X_px(1370);
+            height: Y_px(900);
+        }
+
+        &-cam {
+            position: fixed;
+            top: Y_px(90);
+            right: 0;
+            width: X_px(550);
+            height: Y_px(450);
+        }
+
+        &-card {
+            position: fixed;
+            bottom: Y_px(90);
+            right: 0;
+            width: X_px(550);
+            height: Y_px(450);
+        }
+    }
 }

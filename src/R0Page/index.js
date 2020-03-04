@@ -85,7 +85,7 @@ export class R0Controller extends Component {
 
         let modeKeyboard = [];
         const controlModes = this.getCurrentControlModes();
-        if (this.state.agenda.type === agendaTypes.ForumMode) {
+        if (this.state.agenda && this.state.agenda.type === agendaTypes.ForumMode) {
             forumSpeakers.map(e => modeKeyboard.push({ text: e.name }))
         }
         else {

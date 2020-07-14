@@ -57,9 +57,9 @@ export class R0Controller extends Component {
         })
 
         if (this.state.autoAgenda) {
-            while (currentAgendaIndex >= 0 && Agendas[currentAgendaIndex].type === agendaTypes.RestingMode) {
-                currentAgendaIndex--;
-            }
+            // while (currentAgendaIndex >= 0 && Agendas[currentAgendaIndex].type === agendaTypes.RestingMode) {
+            //     currentAgendaIndex--;
+            // }
 
             const agenda = currentAgendaIndex < 0 ? null : Agendas[currentAgendaIndex];
 

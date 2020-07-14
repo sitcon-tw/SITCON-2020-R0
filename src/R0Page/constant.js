@@ -67,6 +67,13 @@ export const layoutControlModes = {
                 timeUp: true
             }
         }
+    },
+    [agendaTypes.RestingMode]: {
+        "BREAKTIME": {
+            type: layoutTypes.LayoutD,
+            name: "BREAKTIME",
+            prop: {}
+        }
     }
 }
 

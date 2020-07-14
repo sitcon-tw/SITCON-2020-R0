@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { layoutTypes } from './constant'
-import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock, Slido, FlashCard } from '../components'
+import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock, Slido, FlashCard, BreakTimePage } from '../components'
 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 class R0Page extends Component {
@@ -94,7 +94,13 @@ class R0Page extends Component {
             <ButtomBar />
           </div>
         </div>
-        
+      )
+    }
+    else if (this.props.currentLayout.type === layoutTypes.LayoutD) {
+      return (
+        <div className="R0page">
+          <BreakTimePage />
+        </div>
       )
     }
 

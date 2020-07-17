@@ -1,31 +1,3 @@
 .BreakTimePage {
-    width: 100vw;
-    height: 100vh;
-
-    .top-ads {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: X_px(1600);
-        height: Y_px(90);
-        background-color: skyblue;
-    }
-
-    .bottom-ads {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: X_px(1600);
-        height: Y_px(90);
-        background-color: skyblue;
-    }
-
-    .next-agenda {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: X_px(320);
-        height: Y_px(1080);
-        background-color: black;
-    }
+    
 }

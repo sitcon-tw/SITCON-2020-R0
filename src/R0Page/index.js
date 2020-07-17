@@ -17,6 +17,20 @@ const defaultSpeaker = {
     name: 'Sharp',
     url: '1.png'
 }
+const defaultAgenda = {
+    title: 'SITCON 學生計算機年會',
+    name: '',
+    startTime: {
+      hours: 8,
+      minutes: 30
+    },
+    endTime: {
+      hours: 9,
+      minutes: 0
+    },
+    slido: null,
+    type: agendaTypes.RestingMode
+  }
 
 export class R0Controller extends Component {
     chatIds = [] // chatId of the users that use controller
@@ -24,8 +38,7 @@ export class R0Controller extends Component {
     constructor(props) {
         super(props);
 
-        let agenda = "";
-
+        let agenda = defaultAgenda
         if (localStorage.agenda) {
             agenda = Agendas[parseInt(localStorage.agenda)] ? Agendas[parseInt(localStorage.agenda)] : agenda;
         }
@@ -38,15 +51,16 @@ export class R0Controller extends Component {
             nowForumSpeaker: localStorage.ForumSpeaker ? JSON.parse(localStorage.ForumSpeaker) : defaultSpeaker,
         }
 
-        this.nowPlaying = this.nowPlaying.bind(this);
+        this.getAgendaByTime = this.getAgendaByTime.bind(this);
         this.controlBotUpdate = this.controlBotUpdate.bind(this);
+        this.updateAgenda = this.updateAgenda.bind(this)
 
         this.chatIds = localStorage.chatIds ? JSON.parse(localStorage.chatIds) : [];
 
         localStorage.autoAgenda = this.state.autoAgenda;
     }
 
-    nowPlaying() {
+    getAgendaByTime() {
         let nowTime = new Date();
         let nowDate = nowTime.getHours() * 60 + nowTime.getMinutes()
 
@@ -63,21 +77,49 @@ export class R0Controller extends Component {
 
             const agenda = currentAgendaIndex < 0 ? null : Agendas[currentAgendaIndex];
 
-
-            if (agenda !== this.state.agenda) {
-                this.setState({
-                    agenda
-                });
-
-                this.chatIds.forEach((id) => {
-                    this.controlBotSend(id);
-                });
-            }
+            return agenda
         }
     }
 
+    getDefaultLayout(agenda) {
+        let controlModes = layoutControlModes[agenda.type]
+        switch(agenda.type) {
+            case agendaTypes.ForumMode:
+                return controlModes['MAIN']
+            default:
+                return controlModes['PPT+IRC']
+        }
+    }
+
+    updateAgenda(data) {
+        console.log('Agenda updated!')
+        let agenda = this.state.agenda
+        console.log(agenda)
+        if(data && data.callback_query) {
+            const callback_query = data.callback_query;
+            const newAgendaI = callback_query.data;
+            agenda = Agendas[newAgendaI]
+        }
+        else if(this.state.autoAgenda) {
+            agenda = this.getAgendaByTime()
+        }
+        console.log(agenda)
+        let currentLayout = this.state.currentLayout
+        let controlModes = layoutControlModes[agenda.type]
+        console.log(currentLayout, controlModes)
+        if(!controlModes[currentLayout.name]) {
+            console.log('Layout Updated!!!')
+            currentLayout = this.getDefaultLayout(agenda)
+        }
+
+        this.setState({
+            agenda,
+            currentLayout
+        })
+    }
+
     componentDidMount() {
-        setInterval(this.nowPlaying, 1000);
+        setInterval(this.updateAgenda(), 1000);
         this.controlBotUpdate();
     }
 
@@ -144,7 +186,6 @@ export class R0Controller extends Component {
                 localStorage.autoAgenda = "true";
 
                 this.controlBotSend(data.message.chat.id, "切換為自動議程")
-                this.nowPlaying()
             } else if (data.message.text.search("/manual") === 0) {
                 this.setState({
                     autoAgenda: false
@@ -252,9 +293,9 @@ export class R0Controller extends Component {
                     result.result.forEach((r) => {
                         localStorage.control_offset = r.update_id
                         this.controlBotReceived(r)
+                        this.updateAgenda(r)
                     })
                 }
-
                 setTimeout(() => {
                     this.controlBotUpdate()
                 }, 100)

@@ -35,8 +35,8 @@ export const Agendas = [
     type: agendaTypes.CommonMode
   },
   {
-    title: 'Keynote',
-    name: '',
+    title: '機器學習的關鍵下一步',
+    name: '李宏毅',
     startTime: {
       hours: 9,
       minutes: 10
@@ -66,8 +66,8 @@ export const Agendas = [
     type: agendaTypes.RestingMode
   },
   {
-    title: '學生參與式網路治理的機會與挑戰',
-    name: '陳文生',
+    title: '駭入世界最深的海溝',
+    name: 'CIH',
     startTime: {
       hours: 10,
       minutes: 10
@@ -107,7 +107,10 @@ export const Agendas = [
       hours: 11,
       minutes: 50
     },
-    slido: null,
+    slido: {
+      'link': 'https://sli.do/nnrswoh0',
+      'iframe': 'https://wall.sli.do/event/nnrswoh0'
+    },
     type: agendaTypes.CommonMode
   },
   {
@@ -125,8 +128,8 @@ export const Agendas = [
     type: agendaTypes.RestingMode
   },
   {
-    title: '論壇',
-    name: '',
+    title: '論壇 - 刪你廢文再收掉服務！大型資訊企業決策的自由與責任',
+    name: '主持人 - 子魚、與談人 - 何明諠、與談人 - 詹婷怡律師',
     startTime: {
       hours: 12,
       minutes: 40
@@ -355,6 +358,7 @@ export const getAgendas = async () => {
       case '休息時間':
       case '換場':
       case '點心':
+      case '午餐':
           type = agendaTypes.RestingMode
           break
       case '論壇':

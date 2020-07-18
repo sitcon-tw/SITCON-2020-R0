@@ -29,7 +29,7 @@ const defaultAgenda = {
       minutes: 0
     },
     slido: null,
-    type: agendaTypes.RestingMode
+    type: agendaTypes.CommonMode
   }
 
 export class R0Controller extends Component {
@@ -61,6 +61,7 @@ export class R0Controller extends Component {
     }
 
     getAgendaByTime() {
+        console.log('Agenda Get!')
         let nowTime = new Date();
         let nowDate = nowTime.getHours() * 60 + nowTime.getMinutes()
 
@@ -75,7 +76,7 @@ export class R0Controller extends Component {
                 currentAgendaIndex--;
             }
 
-            const agenda = currentAgendaIndex < 0 ? null : Agendas[currentAgendaIndex];
+            const agenda = currentAgendaIndex < 0 ? defaultAgenda : Agendas[currentAgendaIndex];
 
             return agenda
         }
@@ -103,10 +104,10 @@ export class R0Controller extends Component {
         else if(this.state.autoAgenda) {
             agenda = this.getAgendaByTime()
         }
-        console.log(agenda)
+        // console.log(agenda)
         let currentLayout = this.state.currentLayout
         let controlModes = layoutControlModes[agenda.type]
-        console.log(currentLayout, controlModes)
+        // console.log(currentLayout, controlModes)
         if(!controlModes[currentLayout.name]) {
             console.log('Layout Updated!!!')
             currentLayout = this.getDefaultLayout(agenda)
@@ -119,12 +120,12 @@ export class R0Controller extends Component {
     }
 
     componentDidMount() {
-        setInterval(this.updateAgenda(), 1000);
+        setInterval(this.updateAgenda, 1000);
         this.controlBotUpdate();
     }
 
     controlBotSend(id, text, reply_markup) {
-
+        console.log('ControlBotSend!')
         let modeKeyboard = [];
         const controlModes = this.getCurrentControlModes();
         if (this.state.agenda && this.state.agenda.type === agendaTypes.ForumMode) {
@@ -186,6 +187,7 @@ export class R0Controller extends Component {
                 localStorage.autoAgenda = "true";
 
                 this.controlBotSend(data.message.chat.id, "切換為自動議程")
+                setTimeout(() => { this.controlBotSend(data.message.chat.id) }, 1000)
             } else if (data.message.text.search("/manual") === 0) {
                 this.setState({
                     autoAgenda: false

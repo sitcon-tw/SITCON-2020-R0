@@ -106,6 +106,9 @@ export class IRC extends Component {
 
     msgTable() {
         const { items } = this.state;
+
+        let lastDate = null;
+
         return (
             <div className="messages">
                 {items.map((item, key) => {
@@ -120,16 +123,15 @@ export class IRC extends Component {
                         })
                     }
 
+                    let date = this.transferDate(item.message.date);
+
                     return (
                         <div key={key} className="message">
-                            
+
+                            {(date !== lastDate && (lastDate = date)) ? (
+                                <div className="time">{this.transferDate(item.message.date)}</div>) : ""}
                             <div className="word">
                                 {item.message.chat.username}: {item.message.text ? item.message.text.replace(/^<(.+)>/, '$1') : (item.message.sticker ? <img width="100px" height="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> : <strong>Non Text or sticker</strong>)}
-                            </div>
-                            <div className="time">
-                                
-                                    {this.transferDate(item.message.date)}
-                            
                             </div>
                         </div>
                     )

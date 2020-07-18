@@ -1,6 +1,8 @@
 .NowAgendaBar {
     height: 100%;
-    background-color: black;
+    background-image: url('/img/r0/top.png');
+    background-position: center;
+    background-size: cover;
     padding: Y_px(22.5) 0px;
 
     .agenda {

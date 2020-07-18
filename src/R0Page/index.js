@@ -115,9 +115,7 @@ export class R0Controller extends Component {
 
         this.setState({
             agenda,
-            currentLayout,
-            autoAgenda: false,
-            controlBotState: controlBotStateTypes.ModeSelect
+            currentLayout
         })
     }
 
@@ -265,6 +263,11 @@ export class R0Controller extends Component {
             const callback_query = data.callback_query;
             const newAgendaI = callback_query.data;
             this.updateAgenda(data)
+
+            this.setState({
+                autoAgenda: false,
+                controlBotState: controlBotStateTypes.ModeSelect
+            })
 
             this.chatIds.forEach((id) => {
                 this.controlBotSend(id);

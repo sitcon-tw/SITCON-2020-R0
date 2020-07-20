@@ -80,15 +80,19 @@ export const layoutControlModes = {
 
 export const forumSpeakers = [
     {
-        name: 'Sharp',
-        url: '1.png'
+        name: 'EMPTY',
+        url: 'r0/CARD_EMPTY.png'
     },
     {
-        name: 'Stone',
-        url: '2.png'
+        name: '詹婷怡',
+        url: 'r0/CARD_JAN.png'
     },
     {
-        name: 'Seed',
-        url: '3.png'
+        name: '何明諠',
+        url: 'r0/CARD_HOU.png'
+    },
+    {
+        name: '主持人',
+        url: 'r0/CARD_HOST.png'
     }
 ]

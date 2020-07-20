@@ -4,11 +4,11 @@ export class SideBlock extends Component {
     render() {
         if(this.props.mode === 'slido') {
             return(
-                <div className="SideBlock">slido</div>
+                <div className="SideBlock SideBlock-slido"></div>
             )
         } else {
             return(
-                <div className="SideBlock">irc</div>
+                <div className="SideBlock SideBlock-irc"></div>
             )
         }
     }

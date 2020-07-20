@@ -7,7 +7,7 @@ export class FlashCard extends Component {
         return (
             <div className="FlashCard">
                 {
-                    this.props.forumSpeakers.map((e, i) => (e !== undefined) ? (
+                    this.props.forumSpeakers.map((e, i) => (e !== undefined && this.props.nowForumSpeaker !== undefined) ? (
                         <CSSTransition
                             key={i}
                             in={this.props.nowForumSpeaker.name === e.name}

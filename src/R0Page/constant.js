@@ -37,7 +37,16 @@ export const layoutControlModes = {
         "MAIN": {
             type: layoutTypes.LayoutB,
             name: "MAIN",
-            prop: {}
+            prop: {
+                main: "slido"
+            }
+        },
+        "PPT": {
+            type: layoutTypes.LayoutB,
+            name: "MAIN",
+            prop: {
+                main: "ppt"
+            }
         }
     },
     [agendaTypes.LTMode]: {

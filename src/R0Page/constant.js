@@ -70,7 +70,7 @@ export const layoutControlModes = {
             type: layoutTypes.LayoutA,
             name: "TIMEUP",
             prop: {
-                main: "visual",
+                main: "ppt",
                 second: "irc",
                 timeUp: true
             }

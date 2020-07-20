@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     background-color: black;
+    background-image: url("/img/r0/CARD_EMPTY.png");
 
     img {
         position: absolute;
@@ -28,7 +29,7 @@
 
             &-active {
                 opacity: 1;
-                transition: opacity 1s ease-in-out;
+                transition: opacity .5s ease-in-out;
             }
 
             &-done {
@@ -43,7 +44,7 @@
 
             &-active {
                 opacity: 0;
-                transition: opacity 1s ease-in-out;
+                transition: opacity .5s ease-in-out;
             }
 
             &-done {

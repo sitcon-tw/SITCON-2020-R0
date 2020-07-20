@@ -34,18 +34,18 @@ export const layoutControlModes = {
         }
     },
     [agendaTypes.ForumMode]: {
-        "MAIN": {
-            type: layoutTypes.LayoutB,
-            name: "MAIN",
-            prop: {
-                main: "slido"
-            }
-        },
         "PPT": {
             type: layoutTypes.LayoutB,
-            name: "MAIN",
+            name: "PPT",
             prop: {
                 main: "ppt"
+            }
+        },
+        "SLIDO": {
+            type: layoutTypes.LayoutB,
+            name: "SLIDO",
+            prop: {
+                main: "slido"
             }
         }
     },
@@ -79,10 +79,7 @@ export const layoutControlModes = {
 }
 
 export const forumSpeakers = [
-    {
-        name: 'EMPTY',
-        url: 'r0/CARD_EMPTY.png'
-    },
+    
     {
         name: '詹婷怡',
         url: 'r0/CARD_JAN.png'
@@ -94,5 +91,9 @@ export const forumSpeakers = [
     {
         name: '主持人',
         url: 'r0/CARD_HOST.png'
-    }
+    },
+    {
+        name: 'EMPTY',
+        url: 'r0/CARD_EMPTY.png'
+    },
 ]

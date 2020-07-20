@@ -126,14 +126,18 @@ export class R0Controller extends Component {
 
     controlBotSend(id, text, reply_markup) {
         console.log('ControlBotSend!')
-        let modeKeyboard = [[]];
         const controlModes = this.getCurrentControlModes();
-        if (this.state.agenda && this.state.agenda.type === agendaTypes.ForumMode) {
-            forumSpeakers.map(e => modeKeyboard[modeKeyboard.length - 1].push({ text: e.name }))
-        }
-        modeKeyboard.push([])
-        //else {
+        let modeKeyboard = [[]];
         Object.keys(controlModes).map(k => modeKeyboard[modeKeyboard.length - 1].push({ text: k }));
+        modeKeyboard.push([])
+        if (this.state.agenda && this.state.agenda.type === agendaTypes.ForumMode) {
+            forumSpeakers.map((e,i,a) => {
+                modeKeyboard[modeKeyboard.length - 1].push({ text: e.name })
+                if(i===a.length-2) modeKeyboard.push([])
+                return 0
+            })
+        }
+        //else {
         //}
 
 
@@ -246,7 +250,7 @@ export class R0Controller extends Component {
                     let index = forumSpeakers.findIndex(e => e.name === data.message.text)
                     if (index >= 0)
                         this.setState({
-                            currentLayout: controlModes['MAIN'],
+                            // currentLayout: controlModes['MAIN'],
                             nowForumSpeaker: forumSpeakers[index]
                         })
                     else found = false;

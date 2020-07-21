@@ -14,8 +14,8 @@ const defaultLayout = {
     prop: {}
 };
 const defaultSpeaker = {
-    name: 'Sharp',
-    url: '1.png'
+    name: '詹婷怡',
+    url: 'r0/CARD_JAN.png'
 }
 const defaultAgenda = {
     title: 'SITCON 學生計算機年會',
@@ -49,6 +49,7 @@ export class R0Controller extends Component {
             controlBotState: controlBotStateTypes.ModeSelect,
             currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : defaultLayout,
             nowForumSpeaker: localStorage.ForumSpeaker ? JSON.parse(localStorage.ForumSpeaker) : defaultSpeaker,
+            botId: localStorage.botId ? JSON.parse(localStorage.botId) : null
         }
 
         this.getAgendaByTime = this.getAgendaByTime.bind(this);
@@ -77,7 +78,9 @@ export class R0Controller extends Component {
             }
 
             const agenda = currentAgendaIndex < 0 ? defaultAgenda : Agendas[currentAgendaIndex];
-
+            if(this.state.botId && (agenda !== this.state.agenda)) {
+                setTimeout(() => { this.controlBotSend(this.state.botId) }, 500)
+            }
             return agenda
         }
     }
@@ -182,7 +185,9 @@ export class R0Controller extends Component {
             if (this.chatIds.findIndex((id) => id === data.message.chat.id) === -1) {
                 this.chatIds.push(data.message.chat.id);
             }
-
+            this.setState({
+                botId: data.message.chat.id
+            })
             // Agenda
             if (data.message.text.search("/auto") === 0) {
                 this.setState({

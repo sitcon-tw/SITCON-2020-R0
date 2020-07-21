@@ -86,7 +86,7 @@ export class R0Controller extends Component {
         let controlModes = layoutControlModes[agenda.type]
         switch(agenda.type) {
             case agendaTypes.ForumMode:
-                return controlModes['MAIN']
+                return controlModes['PPT']
             default:
                 return controlModes['PPT+IRC']
         }
@@ -126,14 +126,19 @@ export class R0Controller extends Component {
 
     controlBotSend(id, text, reply_markup) {
         console.log('ControlBotSend!')
-        let modeKeyboard = [];
         const controlModes = this.getCurrentControlModes();
+        let modeKeyboard = [[]];
+        Object.keys(controlModes).map(k => modeKeyboard[modeKeyboard.length - 1].push({ text: k }));
+        modeKeyboard.push([])
         if (this.state.agenda && this.state.agenda.type === agendaTypes.ForumMode) {
-            forumSpeakers.map(e => modeKeyboard.push({ text: e.name }))
+            forumSpeakers.map((e,i,a) => {
+                modeKeyboard[modeKeyboard.length - 1].push({ text: e.name })
+                if(i===a.length-2) modeKeyboard.push([])
+                return 0
+            })
         }
-        else {
-            Object.keys(controlModes).map(k => modeKeyboard.push({ text: k }));
-        }
+        //else {
+        //}
 
 
         console.log(modeKeyboard);
@@ -144,7 +149,7 @@ export class R0Controller extends Component {
             body: JSON.stringify({
                 chat_id: id,
                 text: text || (text !== false ? '模式：' + (this.state.autoAgenda ? '自動（切換為手動 /manual）' : '手動（切換為自動 /auto）') + '\n版型：' + this.state.currentLayout.type + " > " + this.state.currentLayout.name + '\n議程：' + (this.state.agenda && this.state.agenda.title ? this.state.agenda.title : this.state.agenda) : null),
-                reply_markup: reply_markup ? reply_markup : (modeKeyboard.length > 0 ? { keyboard: [modeKeyboard] } : { remove_keyboard: true })
+                reply_markup: reply_markup ? reply_markup : (modeKeyboard.some(x => x.length > 0) ? { keyboard: modeKeyboard } : { remove_keyboard: true })
             })
         })
     }
@@ -232,26 +237,26 @@ export class R0Controller extends Component {
             // select layout mode
             else if (this.state.controlBotState === controlBotStateTypes.ModeSelect) {
                 let found = true;
-                // Object.keys(controlModes).forEach((v) => {
-                //     if (v === data.message.text) {
-                //         found = true;
-                //     }
-                // });
                 console.log(found)
-                if (found) {
-                    let controlModes = this.getCurrentControlModes()
-                    if (this.state.agenda.type === agendaTypes.ForumMode) {
-                        let index = forumSpeakers.findIndex(e => e.name === data.message.text)
+                console.log(forumSpeakers, data.message);
+                let controlModes = this.getCurrentControlModes()
+
+                if (controlModes[data.message.text] !== undefined) {
+                    this.setState({
+                        currentLayout: controlModes[data.message.text]
+                    })
+                }
+                else if (this.state.agenda.type === agendaTypes.ForumMode) {
+                    let index = forumSpeakers.findIndex(e => e.name === data.message.text)
+                    if (index >= 0)
                         this.setState({
-                            currentLayout: controlModes['MAIN'],
+                            // currentLayout: controlModes['MAIN'],
                             nowForumSpeaker: forumSpeakers[index]
                         })
-                    } else {
-                        this.setState({
-                            currentLayout: controlModes[data.message.text]
-                        });
-                    }
+                    else found = false;
+                } else found = false;
 
+                if (found) {
                     localStorage.currentLayout = JSON.stringify(this.state.currentLayout);
                     this.controlBotSend(data.message.chat.id, null);
                 } else {

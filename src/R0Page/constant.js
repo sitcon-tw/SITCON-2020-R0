@@ -34,10 +34,19 @@ export const layoutControlModes = {
         }
     },
     [agendaTypes.ForumMode]: {
-        "MAIN": {
+        "PPT": {
             type: layoutTypes.LayoutB,
-            name: "MAIN",
-            prop: {}
+            name: "PPT",
+            prop: {
+                main: "ppt"
+            }
+        },
+        "SLIDO": {
+            type: layoutTypes.LayoutB,
+            name: "SLIDO",
+            prop: {
+                main: "slido"
+            }
         }
     },
     [agendaTypes.LTMode]: {
@@ -61,7 +70,7 @@ export const layoutControlModes = {
             type: layoutTypes.LayoutA,
             name: "TIMEUP",
             prop: {
-                main: "visual",
+                main: "ppt",
                 second: "irc",
                 timeUp: true
             }
@@ -70,10 +79,7 @@ export const layoutControlModes = {
 }
 
 export const forumSpeakers = [
-    {
-        name: 'EMPTY',
-        url: 'r0/CARD_EMPTY.png'
-    },
+    
     {
         name: '詹婷怡',
         url: 'r0/CARD_JAN.png'
@@ -85,5 +91,9 @@ export const forumSpeakers = [
     {
         name: '主持人',
         url: 'r0/CARD_HOST.png'
-    }
+    },
+    {
+        name: 'EMPTY',
+        url: 'r0/CARD_EMPTY.png'
+    },
 ]

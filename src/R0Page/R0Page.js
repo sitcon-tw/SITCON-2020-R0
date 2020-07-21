@@ -11,6 +11,9 @@ class R0Page extends Component {
     if (this.props.currentLayout.type === layoutTypes.LayoutA) {
       return (
         <div className="R0page">
+
+          <div className={"timesup " + (this.props.currentLayout.prop.timeUp ? "" : "timesup-hide")}>
+          </div>
           <div className="top-bar">
             <NowAgendaBar agenda={agenda} />
           </div>
@@ -54,7 +57,7 @@ class R0Page extends Component {
             <NowAgendaBar agenda={agenda} />
           </div>
           <div className="main">
-            <div className="forum-slido">
+            <div className={"forum-slido " + ((this.props.currentLayout.prop.main === 'slido') ? "" : "forum-slido-hidden")}>
               <Slido agenda={agenda} />
             </div>
             <div className="forum-cam">
@@ -94,7 +97,7 @@ class R0Page extends Component {
             <ButtomBar />
           </div>
         </div>
-        
+
       )
     }
 

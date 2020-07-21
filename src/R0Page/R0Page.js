@@ -36,7 +36,9 @@ class R0Page extends Component {
               {
                 this.props.currentLayout.prop.main === "visual" ?
                   <>
-                    <h1>Visual</h1>
+                  <div className="visual">
+                    <img className="lightningtalk" src="/img/r0/lightningtalk.png" alt="lightning talk"></img>
+                  </div>
                   </> :
                   <MainDisplay agenda={agenda} />
               }

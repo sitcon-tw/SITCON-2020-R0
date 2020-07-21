@@ -1,6 +1,7 @@
 .slido {
     width: 100%;
     height: 100%;
+    opacity: 0;
 
     iframe {
         width: 100%;
@@ -21,6 +22,9 @@
     left: 0;
     width: X_px(1600);
     height: Y_px(900);
+
+    animation: display-on-main 0.5s ease-in-out;
+    opacity: 1;
 }
 
 .slido-on-sidebar {
@@ -30,10 +34,33 @@
     right: 0;
     width: X_px(320);
     height: Y_px(660);
+
+    animation: display-on-sidebar 0.5s ease-in-out;
+    opacity: 1;
 }
 
 .slido-hide {
     opacity: 0;
     width: X_px(320);
     height: Y_px(900);
+}
+
+@keyframes display-on-main {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes display-on-sidebar {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

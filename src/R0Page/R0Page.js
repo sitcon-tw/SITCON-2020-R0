@@ -7,13 +7,16 @@ class R0Page extends Component {
 
   getSlidoCSS() {
     console.log('Get CSS!!')
-    if(this.props.currentLayout.prop.main === 'slido') {
-      return 'slido-on-main'
+    if(this.props.currentLayout.type === layoutTypes.LayoutA) {
+      if(this.props.currentLayout.prop.main === 'slido') {
+        return 'slido-on-main'
+      }
+      else if(this.props.currentLayout.prop.second === "slido") {
+        return 'slido-on-sidebar'
+      }
+      return 'slido-hide'
     }
-    else if(this.props.currentLayout.prop.second === "slido") {
-      return 'slido-on-sidebar'
-    }
-    return 'slido-hide'
+    return ''
   }
 
   render() {
@@ -65,7 +68,7 @@ class R0Page extends Component {
           </div>
           <div className="main">
             <div className={"forum-slido " + ((this.props.currentLayout.prop.main === 'slido') ? "" : "forum-slido-hidden")}>
-              <Slido agenda={agenda} />
+              <Slido agenda={agenda} CSS_state={this.getSlidoCSS()}/>
             </div>
             <div className="forum-cam">
               <MainDisplay />
@@ -89,7 +92,7 @@ class R0Page extends Component {
           </div>
           <div className="main">
             <div className="main-display">
-              <Slido agenda={agenda} />
+              <Slido agenda={agenda} CSS_state={this.getSlidoCSS()}/>
             </div>
             <div className="side-bar">
               <div className="side-content">

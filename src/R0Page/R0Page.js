@@ -92,7 +92,6 @@ class R0Page extends Component {
           </div>
           <div className="main">
             <div className="main-display">
-              <Slido agenda={agenda} CSS_state={this.getSlidoCSS()}/>
             </div>
             <div className="side-bar">
               <div className="side-content">

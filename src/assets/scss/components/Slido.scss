@@ -13,3 +13,27 @@
     height: 100%;
     background-color: steelblue;
 }
+
+.slido-on-main {
+    z-index: 1;
+    position: fixed;
+    top: Y_px(90);
+    left: 0;
+    width: X_px(1600);
+    height: Y_px(900);
+}
+
+.slido-on-sidebar {
+    z-index: 1;
+    position: fixed;
+    bottom: Y_px(90);
+    right: 0;
+    width: X_px(320);
+    height: Y_px(660);
+}
+
+.slido-hide {
+    opacity: 0;
+    width: X_px(320);
+    height: Y_px(900);
+}

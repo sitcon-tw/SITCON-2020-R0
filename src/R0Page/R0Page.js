@@ -5,6 +5,17 @@ import { IRC, NowAgendaBar, MainDisplay, ButtomBar, SideBlock, Slido, FlashCard 
 const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 class R0Page extends Component {
 
+  getSlidoCSS() {
+    console.log('Get CSS!!')
+    if(this.props.currentLayout.prop.main === 'slido') {
+      return 'slido-on-main'
+    }
+    else if(this.props.currentLayout.prop.second === "slido") {
+      return 'slido-on-sidebar'
+    }
+    return 'slido-hide'
+  }
+
   render() {
     let agenda = this.props.agenda ? this.props.agenda : NO_AGENDA_TEXT;
 
@@ -20,13 +31,11 @@ class R0Page extends Component {
           <div className="main">
             <div className="main-display">
               {
-                this.props.currentLayout.prop.main === "slido" ?
-                  <Slido agenda={agenda} /> :
-                  this.props.currentLayout.prop.main === "visual" ?
-                    <>
-                      <h1>Visual</h1>
-                    </> :
-                    <MainDisplay agenda={agenda} />
+                this.props.currentLayout.prop.main === "visual" ?
+                  <>
+                    <h1>Visual</h1>
+                  </> :
+                  <MainDisplay agenda={agenda} />
               }
             </div>
             <div className="side-bar">
@@ -36,13 +45,11 @@ class R0Page extends Component {
               <div className="side-content">
                 {
                   this.props.currentLayout.prop.second === "irc" ?
-                    <IRC /> :
-                    this.props.currentLayout.prop.second === "slido" ?
-                      <Slido agenda={agenda} /> :
-                      null
+                    <IRC /> : null
                 }
               </div>
             </div>
+            <Slido agenda={agenda} CSS_state={this.getSlidoCSS()} />
           </div>
           <div className="bottom-bar">
             <ButtomBar />

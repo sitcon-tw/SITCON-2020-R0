@@ -7,11 +7,11 @@ class R0Page extends Component {
 
   getSlidoCSS() {
     console.log('Get CSS!!')
-    if(this.props.currentLayout.type === layoutTypes.LayoutA) {
-      if(this.props.currentLayout.prop.main === 'slido') {
+    if (this.props.currentLayout.type === layoutTypes.LayoutA) {
+      if (this.props.currentLayout.prop.main === 'slido') {
         return 'slido-on-main'
       }
-      else if(this.props.currentLayout.prop.second === "slido") {
+      else if (this.props.currentLayout.prop.second === "slido") {
         return 'slido-on-sidebar'
       }
       return 'slido-hide'
@@ -20,14 +20,23 @@ class R0Page extends Component {
   }
 
   render() {
-    let agenda = this.props.agenda ? this.props.agenda : NO_AGENDA_TEXT;
+    let agenda = this.props.agenda ? this.props.agenda : NO_AGENDA_TEXT
 
     if (this.props.currentLayout.type === layoutTypes.LayoutA) {
       return (
         <div className="R0page">
 
           <div className={"timesup " + (this.props.currentLayout.prop.timeUp ? "" : "timesup-hide")}>
+
+            <h1>
+              <span className={ (this.props.currentLayout.prop.timeUp ? "type" : "")}>
+                ERROR: Connection Timed Out
+                <span className="caret">_</span>
+              </span>
+            </h1>
+
           </div>
+
           <div className="top-bar">
             <NowAgendaBar agenda={agenda} />
           </div>
@@ -36,7 +45,9 @@ class R0Page extends Component {
               {
                 this.props.currentLayout.prop.main === "visual" ?
                   <>
-                    <h1>Visual</h1>
+                    <div className="visual">
+                      <img className="lightningtalk" src="/img/r0/lightningtalk.png" alt="lightning talk"></img>
+                    </div>
                   </> :
                   <MainDisplay agenda={agenda} />
               }
@@ -68,13 +79,13 @@ class R0Page extends Component {
           </div>
           <div className="main">
             <div className={"forum-slido " + ((this.props.currentLayout.prop.main === 'slido') ? "" : "forum-slido-hidden")}>
-              <Slido agenda={agenda} CSS_state={this.getSlidoCSS()}/>
+              <Slido agenda={agenda} CSS_state={this.getSlidoCSS()} />
             </div>
             <div className="forum-cam">
               <MainDisplay />
             </div>
             <div className="forum-card">
-              <FlashCard forumSpeakers={this.props.forumSpeakers} nowForumSpeaker={this.props.nowForumSpeaker}/>
+              <FlashCard forumSpeakers={this.props.forumSpeakers} nowForumSpeaker={this.props.nowForumSpeaker} />
             </div>
           </div>
           <div className="bottom-bar">

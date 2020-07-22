@@ -2,21 +2,40 @@
     width: 100vw;
     height: 100vh;
 
-    .timesup{
+    .timesup {
         position: fixed;
         top: 0;
         left: 0;
         width: X_px(1920);
         height: Y_px(1080);
-        
+
         opacity: 1;
-        
+
         background: black;
+        color: white;
         z-index: 1;
-        transition: opacity 0.1s;
-        &-hide{
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &-hide {
+            transition: opacity 0.5s;
             opacity: 0;
         }
+
+        .type{
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap; 
+            margin: 0 auto;
+            animation: typing .6s steps(20, end);
+          
+        }
+        .caret{
+            animation: blink .75s step-end infinite;
+        }
+
     }
 
     .top-bar {
@@ -40,10 +59,24 @@
             left: 0;
             width: X_px(1600);
             height: Y_px(900);
+
+            .visual {
+                background-image: url("/img/r0/lightningTalkBG.png");
+                background-size: cover;
+                background-position: center;
+                width: 100%;
+                height: 100%;
+
+                .lightningtalk {
+                    width: 1750px;
+                    height: auto;
+                    position: relative;
+                    animation: Floating 4s infinite;
+                }
+            }
         }
 
         .side-bar {
-
             position: fixed;
             top: Y_px(90);
             right: 0;
@@ -64,7 +97,7 @@
                 right: 0;
                 width: X_px(320);
                 height: Y_px(660);
-                
+
                 .irc {
                     position: fixed;
                     bottom: Y_px(90);
@@ -74,20 +107,17 @@
                 }
             }
         }
-
-        
     }
 
     .bottom-bar {
         position: fixed;
         bottom: 0;
-        left: 0; 
+        left: 0;
         width: X_px(1920);
         height: Y_px(90);
     }
 
     .forum {
-
         &-slido {
             position: fixed;
             top: Y_px(90);
@@ -96,7 +126,7 @@
             height: Y_px(900);
             transition: opacity 0.5s;
             opacity: 1;
-            &-hidden{
+            &-hidden {
                 opacity: 0;
             }
         }
@@ -117,5 +147,37 @@
             width: X_px(550);
             height: Y_px(450);
         }
+    }
+}
+
+@keyframes Floating {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    50% {
+        transform: translate(4px, 30px);
+    }
+    0% {
+        transform: translate(0px, 0px);
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink {
+    from,
+    to {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
     }
 }

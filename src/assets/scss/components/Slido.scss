@@ -23,9 +23,14 @@
     left: 0;
     width: X_px(1600);
     height: Y_px(900);
+    transition: ease-in-out 0.5s;
 
-    animation: display-on-main 0.5s ease-in-out;
-    opacity: 1;
+    &-fade-in {
+        opacity: 1;
+    }
+    &-fade-out {
+        opacity: 0;
+    }
 }
 
 .slido-on-sidebar {
@@ -35,33 +40,18 @@
     right: 0;
     width: X_px(320);
     height: Y_px(660);
+    transition: ease-in-out 0.5s;
 
-    animation: display-on-sidebar 0.5s ease-in-out;
-    opacity: 1;
+    &-fade-in {
+        opacity: 1;
+    }
+    &-fade-out {
+        opacity: 0;
+    }
 }
 
 .slido-hide {
     opacity: 0;
     width: X_px(320);
     height: Y_px(900);
-}
-
-@keyframes display-on-main {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes display-on-sidebar {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
 }

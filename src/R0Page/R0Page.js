@@ -9,14 +9,26 @@ class R0Page extends Component {
     console.log('Get CSS!!')
     if (this.props.currentLayout.type === layoutTypes.LayoutA) {
       if (this.props.currentLayout.prop.main === 'slido') {
-        return 'slido-on-main'
+        return {
+          main: 'slido-on-main slido-on-main-fade-in',
+          sidebar: 'slido-on-sidebar slido-on-sidebar-fade-out'
+        }
       }
       else if (this.props.currentLayout.prop.second === "slido") {
-        return 'slido-on-sidebar'
+        return {
+          main: 'slido-on-main slido-on-main-fade-out',
+          sidebar: 'slido-on-sidebar slido-on-sidebar-fade-in'
+        }
       }
-      return 'slido-hide'
+      return {
+        main: 'slido-on-main slido-on-main-fade-out',
+        sidebar: 'slido-on-sidebar slido-on-sidebar-fade-out'
+      }
     }
-    return ''
+    return {
+      main: 'slido-on-main',
+      sidebar: 'slido-on-sidebar'
+    }
   }
 
   render() {
@@ -51,19 +63,17 @@ class R0Page extends Component {
                   </> :
                   <MainDisplay agenda={agenda} />
               }
+              <Slido agenda={agenda} CSS_state={this.getSlidoCSS().main} />
             </div>
             <div className="side-bar">
               <div className="side-block">
                 <SideBlock mode={this.props.currentLayout.prop.second} />
               </div>
               <div className="side-content">
-                {
-                  this.props.currentLayout.prop.second === "irc" ?
-                    <IRC /> : null
-                }
+                <IRC />
+                <Slido agenda={agenda} CSS_state={this.getSlidoCSS().sidebar} />
               </div>
             </div>
-            <Slido agenda={agenda} CSS_state={this.getSlidoCSS()} />
           </div>
           <div className="bottom-bar">
             <ButtomBar />

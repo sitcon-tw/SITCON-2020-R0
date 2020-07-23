@@ -70,7 +70,9 @@ export class IRC extends Component {
             if (result.ok && result.result) {
                 let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                 let newItems = [...storaged, ...result.result];
-
+                if(newItems.length >= 25) {
+                    newItems = newItems.slice(5, newItems.length)
+                }
                 this.setState({
                     latestUpdateId: result.result.length > 0 ? [...result.result].pop().update_id : null,
                     error: null
@@ -84,7 +86,6 @@ export class IRC extends Component {
                     error: { message: result.error_code + ': ' + result.description }
                 });
             }
-
             getUpdateTimeout = setTimeout(this.retriveMessage, 1000);
         },
             (error) => {
@@ -105,10 +106,9 @@ export class IRC extends Component {
     }
 
     msgTable() {
-        const { items } = this.state;
-
+        let { items } = this.state;
         let lastDate = null;
-
+        
         return (
             <div className="messages">
                 {items.map((item, key) => {
@@ -143,6 +143,9 @@ export class IRC extends Component {
 
     saveMessage(msgArray) {
         localStorage.setItem('messages', JSON.stringify(msgArray));
+        // if(msgArray.length >= 25) {
+        //     msgArray = msgArray.slice(5, msgArray.length)
+        // }
         this.setState({
             items: msgArray
         });

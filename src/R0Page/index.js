@@ -8,6 +8,8 @@ const controlBotStateTypes = {
 }
 
 const token = process.env.REACT_APP_CONTROL_BOT_TOKEN;
+const whitelist = process.env.REACT_APP_CONTROL_BOT_WHITELIST;
+
 const defaultLayout = {
     type: layoutTypes.LayoutA,
     name: "EMPTY",
@@ -98,7 +100,7 @@ export class R0Controller extends Component {
     updateAgenda(data) {
         console.log('Agenda updated!')
         let agenda = this.state.agenda
-        console.log(agenda)
+        // console.log(agenda)
         if(data && data.callback_query) {
             const callback_query = data.callback_query;
             const newAgendaI = callback_query.data;
@@ -182,6 +184,12 @@ export class R0Controller extends Component {
     controlBotReceived(data) {
         if (data.message) {
             console.log(data.message)
+            console.log(whitelist)
+            console.log(data.message.from.username)
+            if (!whitelist.includes(`@${data.message.from.username}`)) {
+                console.log(`@${data.message.from.username} NOT CONTROLLER!!!`)
+                return
+            }
             if (this.chatIds.findIndex((id) => id === data.message.chat.id) === -1) {
                 this.chatIds.push(data.message.chat.id);
             }

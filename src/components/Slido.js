@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class Slido extends Component {
   render() {
     let slido = this.props.agenda.slido
-    console.log(slido)
+    // console.log(slido)
     if(slido) {
       return (
         <div className={'slido ' + this.props.CSS_state}>

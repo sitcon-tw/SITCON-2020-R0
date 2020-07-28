@@ -71,7 +71,7 @@ export class IRC extends Component {
                 let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                 let newItems = [...storaged, ...result.result];
                 if(newItems.length >= 25) {
-                    newItems = newItems.slice(5, newItems.length)
+                    newItems = newItems.slice(newItems.length-25)
                 }
                 this.setState({
                     latestUpdateId: result.result.length > 0 ? [...result.result].pop().update_id : null,

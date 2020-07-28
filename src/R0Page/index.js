@@ -8,7 +8,7 @@ const controlBotStateTypes = {
 }
 
 const token = process.env.REACT_APP_CONTROL_BOT_TOKEN
-const whitelist = (process.env.REACT_APP_CONTROL_BOT_WHITELIST || "").split(',').filter(x => x.length == 0)
+const whitelist = (process.env.REACT_APP_CONTROL_BOT_WHITELIST || "").split(',').filter(x => x.length === 0)
 const PASSWORD = process.env.REACT_APP_CONTROL_BOT_PASSWORD
 
 console.log(whitelist)
@@ -18,10 +18,8 @@ const defaultLayout = {
     name: "EMPTY",
     prop: {}
 }
-const defaultSpeaker = {
-    name: '詹婷怡',
-    url: 'r0/CARD_JAN.png'
-}
+const defaultSpeaker = forumSpeakers[forumSpeakers.length-1]
+
 const defaultAgenda = {
     title: 'SITCON 學生計算機年會',
     name: '',
@@ -52,8 +50,8 @@ export class R0Controller extends Component {
             agenda,
             autoAgenda: !localStorage.autoAgenda || localStorage.autoAgenda === "true" ? true : false,
             controlBotState: controlBotStateTypes.ModeSelect,
-            currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : defaultLayout,
-            nowForumSpeaker: localStorage.ForumSpeaker ? JSON.parse(localStorage.ForumSpeaker) : defaultSpeaker,
+            currentLayout: /*localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) :*/ defaultLayout,
+            nowForumSpeaker: /*localStorage.ForumSpeaker ? JSON.parse(localStorage.ForumSpeaker) :*/ defaultSpeaker,
             botId: localStorage.botId ? JSON.parse(localStorage.botId) : null
         }
 

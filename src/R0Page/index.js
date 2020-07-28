@@ -7,14 +7,17 @@ const controlBotStateTypes = {
     ModeSelect: 1
 }
 
-const token = process.env.REACT_APP_CONTROL_BOT_TOKEN;
-const whitelist = process.env.REACT_APP_CONTROL_BOT_WHITELIST;
+const token = process.env.REACT_APP_CONTROL_BOT_TOKEN
+const whitelist = (process.env.REACT_APP_CONTROL_BOT_WHITELIST || "").split(',').filter(x => x.length == 0)
+const PASSWORD = process.env.REACT_APP_CONTROL_BOT_PASSWORD
+
+console.log(whitelist)
 
 const defaultLayout = {
     type: layoutTypes.LayoutA,
     name: "EMPTY",
     prop: {}
-};
+}
 const defaultSpeaker = {
     name: '詹婷怡',
     url: 'r0/CARD_JAN.png'
@@ -23,26 +26,26 @@ const defaultAgenda = {
     title: 'SITCON 學生計算機年會',
     name: '',
     startTime: {
-      hours: 8,
-      minutes: 30
+        hours: 8,
+        minutes: 30
     },
     endTime: {
-      hours: 9,
-      minutes: 0
+        hours: 9,
+        minutes: 0
     },
     slido: null,
     type: agendaTypes.CommonMode
-  }
+}
 
 export class R0Controller extends Component {
     chatIds = [] // chatId of the users that use controller
 
     constructor(props) {
-        super(props);
+        super(props)
 
         let agenda = defaultAgenda
         if (localStorage.agenda) {
-            agenda = Agendas[parseInt(localStorage.agenda)] ? Agendas[parseInt(localStorage.agenda)] : agenda;
+            agenda = Agendas[parseInt(localStorage.agenda)] ? Agendas[parseInt(localStorage.agenda)] : agenda
         }
 
         this.state = {
@@ -54,18 +57,18 @@ export class R0Controller extends Component {
             botId: localStorage.botId ? JSON.parse(localStorage.botId) : null
         }
 
-        this.getAgendaByTime = this.getAgendaByTime.bind(this);
-        this.controlBotUpdate = this.controlBotUpdate.bind(this);
+        this.getAgendaByTime = this.getAgendaByTime.bind(this)
+        this.controlBotUpdate = this.controlBotUpdate.bind(this)
         this.updateAgenda = this.updateAgenda.bind(this)
 
-        this.chatIds = localStorage.chatIds ? JSON.parse(localStorage.chatIds) : [];
+        this.chatIds = localStorage.chatIds ? JSON.parse(localStorage.chatIds) : []
 
-        localStorage.autoAgenda = this.state.autoAgenda;
+        localStorage.autoAgenda = this.state.autoAgenda
     }
 
     getAgendaByTime() {
         console.log('Agenda Get!')
-        let nowTime = new Date();
+        let nowTime = new Date()
         let nowDate = nowTime.getHours() * 60 + nowTime.getMinutes()
 
         let currentAgendaIndex = Agendas.findIndex(e => {
@@ -76,11 +79,11 @@ export class R0Controller extends Component {
 
         if (this.state.autoAgenda) {
             while (currentAgendaIndex >= 0 && Agendas[currentAgendaIndex].type === agendaTypes.RestingMode) {
-                currentAgendaIndex--;
+                currentAgendaIndex--
             }
 
-            const agenda = currentAgendaIndex < 0 ? defaultAgenda : Agendas[currentAgendaIndex];
-            if(this.state.botId && (agenda !== this.state.agenda)) {
+            const agenda = currentAgendaIndex < 0 ? defaultAgenda : Agendas[currentAgendaIndex]
+            if (this.state.botId && (agenda !== this.state.agenda)) {
                 setTimeout(() => { this.controlBotSend(this.state.botId) }, 500)
             }
             return agenda
@@ -89,7 +92,7 @@ export class R0Controller extends Component {
 
     getDefaultLayout(agenda) {
         let controlModes = layoutControlModes[agenda.type]
-        switch(agenda.type) {
+        switch (agenda.type) {
             case agendaTypes.ForumMode:
                 return controlModes['PPT']
             default:
@@ -101,19 +104,19 @@ export class R0Controller extends Component {
         console.log('Agenda updated!')
         let agenda = this.state.agenda
         // console.log(agenda)
-        if(data && data.callback_query) {
-            const callback_query = data.callback_query;
-            const newAgendaI = callback_query.data;
+        if (data && data.callback_query) {
+            const callback_query = data.callback_query
+            const newAgendaI = callback_query.data
             agenda = Agendas[newAgendaI]
         }
-        else if(this.state.autoAgenda) {
+        else if (this.state.autoAgenda) {
             agenda = this.getAgendaByTime()
         }
         // console.log(agenda)
         let currentLayout = this.state.currentLayout
         let controlModes = layoutControlModes[agenda.type]
         // console.log(currentLayout, controlModes)
-        if(!controlModes[currentLayout.name]) {
+        if (!controlModes[currentLayout.name]) {
             console.log('Layout Updated!!!')
             currentLayout = this.getDefaultLayout(agenda)
         }
@@ -125,20 +128,20 @@ export class R0Controller extends Component {
     }
 
     componentDidMount() {
-        setInterval(this.updateAgenda, 1000);
-        this.controlBotUpdate();
+        setInterval(this.updateAgenda, 1000)
+        this.controlBotUpdate()
     }
 
     controlBotSend(id, text, reply_markup) {
         console.log('ControlBotSend!')
-        const controlModes = this.getCurrentControlModes();
-        let modeKeyboard = [[]];
-        Object.keys(controlModes).map(k => modeKeyboard[modeKeyboard.length - 1].push({ text: k }));
+        const controlModes = this.getCurrentControlModes()
+        let modeKeyboard = [[]]
+        Object.keys(controlModes).map(k => modeKeyboard[modeKeyboard.length - 1].push({ text: k }))
         modeKeyboard.push([])
         if (this.state.agenda && this.state.agenda.type === agendaTypes.ForumMode) {
-            forumSpeakers.map((e,i,a) => {
+            forumSpeakers.map((e, i, a) => {
                 modeKeyboard[modeKeyboard.length - 1].push({ text: e.name })
-                if(i===a.length-2) modeKeyboard.push([])
+                if (i === a.length - 2) modeKeyboard.push([])
                 return 0
             })
         }
@@ -146,7 +149,7 @@ export class R0Controller extends Component {
         //}
 
 
-        console.log(modeKeyboard);
+        console.log(modeKeyboard)
 
         fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
             method: "POST",
@@ -173,25 +176,41 @@ export class R0Controller extends Component {
     }
 
     getCurrentControlModes = () => {
-        let controlModes = {};
+        let controlModes = {}
         if (this.state.agenda && typeof this.state.agenda === "object") {
-            controlModes = layoutControlModes[this.state.agenda.type];
+            controlModes = layoutControlModes[this.state.agenda.type]
         };
 
-        return controlModes;
+        return controlModes
     }
 
     controlBotReceived(data) {
         if (data.message) {
             console.log(data.message)
             console.log(whitelist)
-            console.log(data.message.from.username)
-            if (!whitelist.includes(`@${data.message.from.username}`)) {
+            console.log(data.message.from.id)
+
+
+            if (data.message.text.startsWith('/login')) {
+                console.log(data.message.text.substr(7), PASSWORD)
+                if (PASSWORD !== null) {
+                    if (data.message.text.substr(7) === PASSWORD) {
+
+                        whitelist.push(data.message.from.id)
+                        this.controlBotSend(data.message.chat.id, "授權完成。", {})
+                        return
+                    }
+                }
+            }
+
+            if (!whitelist.some(x => x === data.message.from.id.toString())) {
                 console.log(`@${data.message.from.username} NOT CONTROLLER!!!`)
+                this.controlBotSend(data.message.chat.id, data.message.chat.id + " 並未授權，請 /login 登入或詢問 SITCON 20 製播團隊。", {})
                 return
             }
+
             if (this.chatIds.findIndex((id) => id === data.message.chat.id) === -1) {
-                this.chatIds.push(data.message.chat.id);
+                this.chatIds.push(data.message.chat.id)
             }
             this.setState({
                 botId: data.message.chat.id
@@ -202,7 +221,7 @@ export class R0Controller extends Component {
                     autoAgenda: true
                 })
 
-                localStorage.autoAgenda = "true";
+                localStorage.autoAgenda = "true"
                 this.controlBotSend(data.message.chat.id, "切換為自動議程")
             }
             else if (data.message.text.search("/manual") === 0) {
@@ -210,32 +229,32 @@ export class R0Controller extends Component {
                     autoAgenda: false
                 })
 
-                localStorage.autoAgenda = "false";
+                localStorage.autoAgenda = "false"
 
                 this.controlBotSend(data.message.chat.id, "切換為手動議程\n選擇議程 /set")
             }
             else if (data.message.text.search("/set") === 0) {
-                let keyboard = [];
-                let counter = 0;
-                let index = 0;
+                let keyboard = []
+                let counter = 0
+                let index = 0
                 Agendas.forEach((a, i) => {
                     if (a.type !== agendaTypes.RestingMode) {
                         if (!keyboard[index]) {
-                            keyboard[index] = [];
+                            keyboard[index] = []
                         }
                         keyboard[index].push({
                             text: a.title,
                             callback_data: i
                         })
-                        counter++;
+                        counter++
                         if (counter >= 2) {
-                            counter = 0;
-                            index++;
+                            counter = 0
+                            index++
                         }
                     }
                 })
 
-                this.controlBotSend(data.message.chat.id, "請在下方選擇議程", { inline_keyboard: keyboard });
+                this.controlBotSend(data.message.chat.id, "請在下方選擇議程", { inline_keyboard: keyboard })
             }
             // cancel command
             else if (data.message.text.search("/cancel") === 0) {
@@ -248,9 +267,9 @@ export class R0Controller extends Component {
 
             // select layout mode
             else if (this.state.controlBotState === controlBotStateTypes.ModeSelect) {
-                let found = true;
+                let found = true
                 console.log(found)
-                console.log(forumSpeakers, data.message);
+                console.log(forumSpeakers, data.message)
                 let controlModes = this.getCurrentControlModes()
 
                 if (controlModes[data.message.text] !== undefined) {
@@ -265,20 +284,20 @@ export class R0Controller extends Component {
                             // currentLayout: controlModes['MAIN'],
                             nowForumSpeaker: forumSpeakers[index]
                         })
-                    else found = false;
-                } else found = false;
+                    else found = false
+                } else found = false
 
                 if (found) {
-                    localStorage.currentLayout = JSON.stringify(this.state.currentLayout);
-                    this.controlBotSend(data.message.chat.id, null);
+                    localStorage.currentLayout = JSON.stringify(this.state.currentLayout)
+                    this.controlBotSend(data.message.chat.id, null)
                 } else {
-                    this.controlBotSend(data.message.chat.id, "無效的模式");
+                    this.controlBotSend(data.message.chat.id, "無效的模式")
                 }
             }
         }
         else if (data.callback_query) {
-            const callback_query = data.callback_query;
-            const newAgendaI = callback_query.data;
+            const callback_query = data.callback_query
+            const newAgendaI = callback_query.data
             this.updateAgenda(data)
 
             this.setState({
@@ -287,13 +306,13 @@ export class R0Controller extends Component {
             })
 
             this.chatIds.forEach((id) => {
-                this.controlBotSend(id);
-            });
+                this.controlBotSend(id)
+            })
 
-            localStorage.agenda = newAgendaI;
-            localStorage.autoAgenda = "false";
+            localStorage.agenda = newAgendaI
+            localStorage.autoAgenda = "false"
 
-            this.controlBotAnswerCallbackQuery(callback_query.id, "議程設定為：" + Agendas[newAgendaI].title);
+            this.controlBotAnswerCallbackQuery(callback_query.id, "議程設定為：" + Agendas[newAgendaI].title)
         }
     }
 
@@ -321,7 +340,7 @@ export class R0Controller extends Component {
             }, (error) => {
                 this.setState({
                     error
-                });
+                })
 
                 setTimeout(() => {
                     this.controlBotUpdate()

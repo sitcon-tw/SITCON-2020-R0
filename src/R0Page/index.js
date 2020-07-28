@@ -8,7 +8,7 @@ const controlBotStateTypes = {
 }
 
 const token = process.env.REACT_APP_CONTROL_BOT_TOKEN
-const whitelist = (process.env.REACT_APP_CONTROL_BOT_WHITELIST || "").split(',').filter(x => x.length === 0)
+const whitelist = (process.env.REACT_APP_CONTROL_BOT_WHITELIST || "").split(',').filter(x => x.length !== 0)
 const PASSWORD = process.env.REACT_APP_CONTROL_BOT_PASSWORD
 
 console.log(whitelist)
@@ -200,9 +200,8 @@ export class R0Controller extends Component {
                     }
                 }
             }
-
             if (!whitelist.some(x => x === data.message.from.id.toString())) {
-                console.log(`@${data.message.from.username} NOT CONTROLLER!!!`)
+                console.log(`${data.message.from.id}  @${data.message.from.username} NOT CONTROLLER!!!`)
                 this.controlBotSend(data.message.chat.id, data.message.chat.id + " 並未授權，請 /login 登入或詢問 SITCON 20 製播團隊。", {})
                 return
             }

@@ -34,7 +34,9 @@
                 }
             }
             
-            
+            img {
+                object-fit: contain;
+            }
         }
 
         .time {

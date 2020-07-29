@@ -10,10 +10,18 @@ export class NowAgendaBar extends Component {
       Time: '00:00'
     }
   }
+
   componentDidMount() {
     this.getTime()
-    setInterval(this.getTime, 5000)
+    this.interval = setInterval(this.getTime, 5000)
   }
+
+  componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
   agendaLoader(e) {
     let agenda = e
     if (typeof e === 'object') {
@@ -38,25 +46,25 @@ export class NowAgendaBar extends Component {
   }
 
   render() {
-    if(typeof this.props.agenda === 'object')
+    if (typeof this.props.agenda === 'object')
       return (
         <div className="NowAgendaBar">
           <div className="agenda">
-            <div className="agenda-time">{ this.state.Time }</div>
-            <div className="agenda-title">{ this.props.agenda.title }</div>
-            <div className="agenda-name">{ this.props.agenda.name }</div>
+            <div className="agenda-time">{this.state.Time}</div>
+            <div className="agenda-title">{this.props.agenda.title}</div>
+            <div className="agenda-name">{this.props.agenda.name}</div>
           </div>
         </div>
       )
     else
-        return (
-          <div className="NowAgendaBar">
-            <div className="agenda">
-            <div className="agenda-time">{ this.getTime() }</div>
-            <div className="agenda-title">{ this.props.agenda }</div>
+      return (
+        <div className="NowAgendaBar">
+          <div className="agenda">
+            <div className="agenda-time">{this.getTime()}</div>
+            <div className="agenda-title">{this.props.agenda}</div>
           </div>
         </div>
-        )
+      )
   }
 }
 

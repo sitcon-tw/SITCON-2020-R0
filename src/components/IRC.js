@@ -70,7 +70,7 @@ export class IRC extends Component {
             if (result.ok && result.result) {
                 let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                 let newItems = [...storaged, ...result.result];
-                if(newItems.length >= 25) {
+                if (newItems.length >= 25) {
                     newItems = newItems.slice(5, newItems.length)
                 }
                 this.setState({
@@ -108,7 +108,7 @@ export class IRC extends Component {
     msgTable() {
         let { items } = this.state;
         let lastDate = null;
-        
+
         return (
             <div className="messages">
                 {items.map((item, key) => {
@@ -125,13 +125,38 @@ export class IRC extends Component {
 
                     let date = this.transferDate(item.message.date);
 
+                    const availableTypes = [
+                        "photo",
+                        "audio",
+                        "voice",
+                        "document",
+                        "video",
+                        "video_note",
+                        "contact",
+                        "dice",
+                        "game",
+                        "poll",
+                        "venue",
+                        "location",
+                        "invoice"
+                    ]
+
                     return (
                         <div key={key} className="message">
 
                             {(date !== lastDate && (lastDate = date)) ? (
                                 <div className="time">{this.transferDate(item.message.date)}</div>) : ""}
                             <div className="word">
-                                {item.message.chat.username}: {item.message.text ? item.message.text.replace(/^<(.+)>/, '$1') : (item.message.sticker ? <img width="100px" height="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> : <strong>Non Text or sticker</strong>)}
+                                {item.message.from.username}: {
+                                    item.message.text ?
+                                        item.message.text.replace(/^<(.+)>/, '$1') :
+                                        (item.message.sticker ? <img width="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> :
+                                            <strong>[{
+                                                availableTypes.find((fieldName) => {
+                                                    return !!item.message[fieldName];
+                                                })
+                                            }]</strong>)
+                                }
                             </div>
                         </div>
                     )

@@ -8,20 +8,20 @@ export const layoutTypes = {
 
 export const layoutControlModes = {
     [agendaTypes.CommonMode]: {
-        "PPT+IRC": {
-            type: layoutTypes.LayoutA,
-            name: "PPT+IRC",
-            prop: {
-                main: "ppt",
-                second: "irc"
-            }
-        },
         "PPT+SLIDO": {
             type: layoutTypes.LayoutA,
             name: "PPT+SLIDO",
             prop: {
                 main: "ppt",
                 second: "slido"
+            }
+        },
+        "PPT+IRC": {
+            type: layoutTypes.LayoutA,
+            name: "PPT+IRC",
+            prop: {
+                main: "ppt",
+                second: "irc"
             }
         },
         "SLIDO+IRC": {
@@ -79,7 +79,7 @@ export const layoutControlModes = {
 }
 
 export const forumSpeakers = [
-    
+
     {
         name: '詹婷怡',
         url: 'r0/CARD_JAN.png'

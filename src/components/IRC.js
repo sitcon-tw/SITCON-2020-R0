@@ -150,7 +150,7 @@ export class IRC extends Component {
                                 {item.message.from.username}: {
                                     item.message.text ?
                                         item.message.text.replace(/^<(.+)>/, '$1') :
-                                        (item.message.sticker ? <img width="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt={item.message.sticker.emoji} /> :
+                                        (item.message.sticker ? <img width="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt=""/> :
                                             <strong>[{
                                                 availableTypes.find((fieldName) => {
                                                     return !!item.message[fieldName];

@@ -51,7 +51,7 @@ export class R0Controller extends Component {
             controlBotState: controlBotStateTypes.ModeSelect,
             currentLayout: localStorage.currentLayout ? JSON.parse(localStorage.currentLayout) : defaultLayout,
             nowForumSpeaker: localStorage.ForumSpeaker ? JSON.parse(localStorage.ForumSpeaker) : defaultSpeaker,
-            botId: localStorage.botId ? JSON.parse(localStorage.botId) : null
+            botId: localStorage.botId ? JSON.parse(localStorage.botId) : null,
         }
 
         this.getAgendaByTime = this.getAgendaByTime.bind(this);

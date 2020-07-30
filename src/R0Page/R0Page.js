@@ -37,18 +37,6 @@ class R0Page extends Component {
     if (this.props.currentLayout.type === layoutTypes.LayoutA) {
       return (
         <div className="R0page">
-
-          <div className={"timesup " + (this.props.currentLayout.prop.timeUp ? "" : "timesup-hide")}>
-
-            <h1>
-              <span className={ (this.props.currentLayout.prop.timeUp ? "type" : "")}>
-                ERROR: Connection Timed Out
-                <span className="caret">_</span>
-              </span>
-            </h1>
-
-          </div>
-
           <div className="top-bar">
             <NowAgendaBar agenda={agenda} />
           </div>
@@ -108,18 +96,41 @@ class R0Page extends Component {
 
       return (
         <div className="R0page">
+
+          <div className={"timesup " + (this.props.currentLayout.prop.timeUp ? "" : "timesup-hide")}>
+
+            <h1>
+              <span className={ (this.props.currentLayout.prop.timeUp ? "type" : "")}>
+                ERROR: Connection Timed Out
+                <span className="caret">_</span>
+              </span>
+            </h1>
+
+          </div>
+
           <div className="top-bar">
             <NowAgendaBar agenda={agenda} />
           </div>
           <div className="main">
             <div className="main-display">
+              {
+                this.props.currentLayout.prop.main === "visual" ?
+                  <>
+                    <div className="visual">
+                      <img className="lightningtalk" src="/img/r0/lightningtalk.png" alt="lightning talk"></img>
+                    </div>
+                  </> :
+                  <MainDisplay agenda={agenda} />
+              }
+              <Slido agenda={agenda} CSS_state={this.getSlidoCSS().main} />
             </div>
             <div className="side-bar">
+              <div className="side-block">
+                <SideBlock mode={this.props.currentLayout.prop.second} />
+              </div>
               <div className="side-content">
                 <IRC />
-              </div>
-              <div className="side-block">
-                <SideBlock mode={'irc'} />
+                <Slido agenda={agenda} CSS_state={this.getSlidoCSS().sidebar} />
               </div>
             </div>
           </div>
@@ -127,7 +138,6 @@ class R0Page extends Component {
             <ButtomBar />
           </div>
         </div>
-
       )
     }
 

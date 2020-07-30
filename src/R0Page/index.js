@@ -204,6 +204,7 @@ export class R0Controller extends Component {
 
                 localStorage.autoAgenda = "true";
                 this.controlBotSend(data.message.chat.id, "切換為自動議程")
+                setTimeout(() => { this.controlBotSend(data.message.chat.id) }, 1000)
             }
             else if (data.message.text.search("/manual") === 0) {
                 this.setState({

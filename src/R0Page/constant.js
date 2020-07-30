@@ -51,7 +51,7 @@ export const layoutControlModes = {
     },
     [agendaTypes.LTMode]: {
         "PPT+IRC": {
-            type: layoutTypes.LayoutA,
+            type: layoutTypes.LayoutC,
             name: "PPT+IRC",
             prop: {
                 main: "ppt",
@@ -59,7 +59,7 @@ export const layoutControlModes = {
             }
         },
         "STBY": {
-            type: layoutTypes.LayoutA,
+            type: layoutTypes.LayoutC,
             name: "STBY",
             prop: {
                 main: "visual",
@@ -67,7 +67,7 @@ export const layoutControlModes = {
             }
         },
         "TIMEUP": {
-            type: layoutTypes.LayoutA,
+            type: layoutTypes.LayoutC,
             name: "TIMEUP",
             prop: {
                 main: "ppt",

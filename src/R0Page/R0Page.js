@@ -6,7 +6,6 @@ const NO_AGENDA_TEXT = 'SITCON 學生計算機年會'
 class R0Page extends Component {
 
   getSlidoCSS() {
-    console.log('Get CSS!!')
     if (this.props.currentLayout.type === layoutTypes.LayoutA) {
       if (this.props.currentLayout.prop.main === 'slido') {
         return {

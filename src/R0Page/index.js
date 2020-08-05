@@ -64,7 +64,6 @@ export class R0Controller extends Component {
     }
 
     getAgendaByTime() {
-        console.log('Agenda Get!')
         let nowTime = new Date();
         let nowDate = nowTime.getHours() * 60 + nowTime.getMinutes()
 
@@ -98,7 +97,6 @@ export class R0Controller extends Component {
     }
 
     updateAgenda(data) {
-        console.log('Agenda updated!')
         let agenda = this.state.agenda
         // console.log(agenda)
         if(data && data.callback_query) {
@@ -114,7 +112,6 @@ export class R0Controller extends Component {
         let controlModes = layoutControlModes[agenda.type]
         // console.log(currentLayout, controlModes)
         if(!controlModes[currentLayout.name]) {
-            console.log('Layout Updated!!!')
             currentLayout = this.getDefaultLayout(agenda)
         }
 

@@ -9,7 +9,7 @@ function getUpdate(token, latestUpdateId) {
 }
 
 function getMessage(e) {
-    return e.message || e.edited_message;
+    return e.edited_message || e.message;
 }
 
 export class IRC extends Component {
@@ -98,6 +98,31 @@ export class IRC extends Component {
 
                     return message && message.chat && message.chat.id === this.state.IRC_id;
                 })
+
+                newItems = newItems.sort((a, b) => {
+                    const msg_a = getMessage(a);
+                    const msg_b = getMessage(b);
+
+                    if (msg_a.edit_date === undefined) msg_a.edit_date = 1;
+                    if (msg_b.edit_date === undefined) msg_b.edit_date = 1;
+
+                    return msg_a.message_id > msg_b.message_id ? 1 : msg_a.message_id === msg_b.message_id ?
+                        msg_a.edit_date > msg_b.edit_date ? 1 : msg_a.edit_date === msg_b.edit_date ? 0 : -1
+                        : -1;
+                });
+
+                newItems = newItems.map((e, i) => {
+                    const update_id = e.update_id;
+                    const msg = getMessage(e);
+
+                    const index = newItems.findIndex((e) => {
+                        const m = getMessage(e);
+                        return m.message_id === msg.message_id && e.update_id !== update_id;
+                    });
+
+                    if (i < index) return null;
+                    return e;
+                }).filter((e) => e !== null);
 
                 if (newItems.length >= 35) {
                     newItems = newItems.slice(5, newItems.length)

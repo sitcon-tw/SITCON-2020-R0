@@ -8,6 +8,10 @@ function getUpdate(token, latestUpdateId) {
         .then(res => res.json());
 }
 
+function getMessage(e) {
+    return e.message || e.edited_message;
+}
+
 export class IRC extends Component {
     constructor(props) {
         super(props);
@@ -72,26 +76,37 @@ export class IRC extends Component {
             if (result.ok && result.result) {
                 let storaged = localStorage.getItem('messages') ? JSON.parse(localStorage.getItem('messages')) : [];
                 let newItems = [...storaged, ...result.result];
-                console.log(newItems)
-                newItems.map(e => {
-                    if (!this.state.IRC_id && newItems[0].message.chat.title === IRC_name) {
-                        this.setState({
-                            IRC_id: e.message.chat.id
-                        })
-                        localStorage.IRC_id = e.message.chat.id
-                    }
-                    return 0
+
+                // if IRC_id is null, get one
+                if (!this.state.IRC_id) {
+                    newItems.forEach(e => {
+                        if (!this.state.IRC_id) {
+                            const message = getMessage(e);
+
+                            if (message.chat.title === IRC_name) {
+                                this.setState({
+                                    IRC_id: message.chat.id
+                                })
+                                localStorage.IRC_id = message.chat.id;
+                            }
+                        }
+                    })
+                }
+
+                newItems = newItems.filter((e) => {
+                    const message = getMessage(e);
+
+                    return message && message.chat && message.chat.id === this.state.IRC_id;
                 })
-                
+
                 if (newItems.length >= 35) {
                     newItems = newItems.slice(5, newItems.length)
                 }
-                
+
                 this.setState({
                     latestUpdateId: result.result.length > 0 ? [...result.result].pop().update_id : null,
                     error: null
                 });
-                console.log(newItems)
 
                 this.saveMessage(newItems);
                 let m = document.querySelector('.messages');
@@ -124,25 +139,22 @@ export class IRC extends Component {
         let { items } = this.state;
         let lastDate = null;
 
-        if (this.state.IRC_id) {
-            items = items.filter(e => e.message.chat.id === this.state.IRC_id)
-        }
-
         return (
             <div className="messages">
                 {items.map((item, key) => {
+                    const message = getMessage(item);
 
-                    if (item.message.sticker && item.message.sticker.file_id && !this.state.stickersPath[item.message.sticker.file_id]) {
-                        this.getStickerWithFileId(item.message.sticker.is_animated ? item.message.sticker.thumb.file_id : item.message.sticker.file_id).then((path) => {
+                    if (message.sticker && message.sticker.file_id && !this.state.stickersPath[message.sticker.file_id]) {
+                        this.getStickerWithFileId(message.sticker.is_animated ? message.sticker.thumb.file_id : message.sticker.file_id).then((path) => {
                             let newStickersPath = this.state.stickersPath;
-                            newStickersPath[item.message.sticker.file_id] = path;
+                            newStickersPath[message.sticker.file_id] = path;
                             this.setState({
                                 stickersPath: newStickersPath
                             })
                         })
                     }
 
-                    let date = this.transferDate(item.message.date);
+                    let date = this.transferDate(message.date);
 
                     const availableTypes = [
                         "photo",
@@ -164,15 +176,15 @@ export class IRC extends Component {
                         <div key={key} className="message">
 
                             {(date !== lastDate && (lastDate = date)) ? (
-                                <div className="time">{this.transferDate(item.message.date)}</div>) : ""}
+                                <div className="time">{this.transferDate(message.date)}</div>) : ""}
                             <div className="word">
-                                {item.message.from.username}: {
-                                    item.message.text ?
-                                        item.message.text.replace(/^<(.+)>/, '$1') :
-                                        (item.message.sticker ? <img width="100px" src={this.state.stickersPath[item.message.sticker.file_id]} alt=""/> :
+                                {message.from.username}: {
+                                    message.text ?
+                                        message.text.replace(/^<(.+)>/, '$1') :
+                                        (message.sticker ? <img width="100px" src={this.state.stickersPath[message.sticker.file_id]} alt="" /> :
                                             <strong>[{
                                                 availableTypes.find((fieldName) => {
-                                                    return !!item.message[fieldName];
+                                                    return !!message[fieldName];
                                                 })
                                             }]</strong>)
                                 }
